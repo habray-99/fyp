@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialBinding: BindingsBuilder(() {
-            Get.put(CoreController());
-          }),
+        Get.put(CoreController());
+      }),
       home: SplashScreen(),
     );
   }
