@@ -1,9 +1,12 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:convert';
 import 'dart:developer';
 
 // import 'package:file_structure/models/user_details.dart';
 import 'package:get_storage/get_storage.dart';
+
+import '../model/user_detail.dart';
 
 
 class StorageKeys {
@@ -24,17 +27,17 @@ class StorageHelper {
     }
   }
   
-  // static UserDetail? getUser() {
-  //   log("Fetching user");
-  //   try {
-  //     final box = GetStorage();
-  //     log("${box.read(StorageKeys.USER)}");
-  //     UserDetail user = UserDetail.fromJson(json.decode(box.read(StorageKeys.USER)));
-  //     return user;
-  //   } catch (e, s) {
-  //     log(e.toString());
-  //     log(s.toString());
-  //     return null;
-  //   }
-  // }
+  static Users? getUser() {
+    log("Fetching user");
+    try {
+      final box = GetStorage();
+      log("${box.read(StorageKeys.USER)}");
+      Users user = Users.fromJson(json.decode(box.read(StorageKeys.USER)));
+      return user;
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      return null;
+    }
+  }
 }
