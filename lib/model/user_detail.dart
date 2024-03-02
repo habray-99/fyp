@@ -52,7 +52,7 @@ class Users {
   String? memberHeight;
   String? memberWeight;
   String? memberToken;
-  int? memberType;
+  String? memberType;
   String? tokenExpiry;
 
   Users(
