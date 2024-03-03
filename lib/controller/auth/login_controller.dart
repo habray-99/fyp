@@ -23,6 +23,7 @@ class LoginController extends GetxController {
   RxBool isChecked = false.obs;
   void onEyeCLick() {
     passwordObscure.value = !passwordObscure.value;
+    print("Password obscure: ${passwordObscure.value}");
   }
 
   void onSubmit() async {
