@@ -44,7 +44,8 @@ class RegisterRepo {
       log(Apis.registerUrl);
       dynamic data = jsonDecode(response.body.toString());
       // log(data.toString());
-      if (response.statusCode >= 200 && response.statusCode <= 300) {
+      // if (response.statusCode >= 200 && response.statusCode <= 300) {
+      if (response.statusCode == 200) {
         onSuccess(data["message"]);
       } else {
         onError(data["message"]);

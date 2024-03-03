@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fyp/views/auth/login_screen.dart';
+// import 'package:fyp/views/auth/login_screen.dart';
 import 'package:fyp/views/splash_screen.dart';
+// import 'package:fyp/views/splash_screen.dart';
 import 'package:get/get.dart';
+// import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import 'controller/core_controller.dart';
 
@@ -18,11 +22,13 @@ class MyApp extends StatelessWidget {
       title: 'Fyp App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
       initialBinding: BindingsBuilder(() {
-        Get.put(CoreController());
+        Get.put(() => CoreController());
       }),
-      home: SplashScreen(),
+      // home: SplashScreen(),
+      home: LogInScreen(),
     );
   }
 }

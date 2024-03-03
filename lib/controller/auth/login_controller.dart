@@ -8,17 +8,17 @@ import 'package:fyp/utils/storage_keys.dart';
 import 'package:fyp/views/dashboard/home_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
+// import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
-class LoginController extends GetxController{
+class LoginController extends GetxController {
   final key = GlobalKey<FormState>();
   RxBool passwordObscure = true.obs;
 
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
 
-  final loading = SimpleFontelicoProgressDialog(
-      context: Get.context!, barrierDimisable: false);
+  // final loading = SimpleFontelicoProgressDialog(
+  //     context: Get.context!, barrierDimisable: false);
 
   RxBool isChecked = false.obs;
   void onEyeCLick() {
@@ -27,15 +27,15 @@ class LoginController extends GetxController{
 
   void onSubmit() async {
     if (key.currentState!.validate()) {
-      loading.show(
-        message: 'Please wait',
-        hideText: true,
-      );
+      // loading.show(
+      //   message: 'Please wait',
+      //   hideText: true,
+      // );
       await LoginRepo.login(
         email: emailController.text,
         password: passwordController.text,
         onSuccess: (user, token) async {
-          loading.hide();
+          // loading.hide();
           final box = GetStorage();
           await box.write(StorageKeys.USER, json.encode(user.toJson()));
           await box.write(StorageKeys.ACCESS_TOKEN, token.toString());
@@ -44,7 +44,7 @@ class LoginController extends GetxController{
           CustomSnackBar.success(title: "Login", message: "Login Successful");
         },
         onError: (message) {
-          loading.hide();
+          // loading.hide();
           CustomSnackBar.error(title: "Login", message: message);
         },
       );

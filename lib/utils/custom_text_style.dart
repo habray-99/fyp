@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class CustomTextStyles {
@@ -104,4 +105,6 @@ class CustomTextStyles {
         fontSize: 32,
         fontWeight: FontWeight.w600);
   }
+
+  
 }
