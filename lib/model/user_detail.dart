@@ -42,13 +42,13 @@
 //   }
 // }
 
-
 class Users {
   int? memberId;
   String? memberName;
   String? memberEmail;
   String? memberPhone;
   String? memberAddress;
+  String? memberPassword;
   String? memberHeight;
   String? memberWeight;
   String? memberToken;
@@ -61,6 +61,7 @@ class Users {
       this.memberEmail,
       this.memberPhone,
       this.memberAddress,
+      this.memberPassword,
       this.memberHeight,
       this.memberWeight,
       this.memberToken,
@@ -73,6 +74,7 @@ class Users {
     memberEmail = json['member_email'];
     memberPhone = json['member_phone'];
     memberAddress = json['member_address'];
+    memberPassword = json['member_password'];
     memberHeight = json['member_height'];
     memberWeight = json['member_weight'];
     memberToken = json['member_token'];
@@ -87,6 +89,7 @@ class Users {
     data['member_email'] = memberEmail;
     data['member_phone'] = memberPhone;
     data['member_address'] = memberAddress;
+    data['member_password'] = memberPassword;
     data['member_height'] = memberHeight;
     data['member_weight'] = memberWeight;
     data['member_token'] = memberToken;
