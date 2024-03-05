@@ -5,6 +5,8 @@ import 'dart:developer';
 import 'package:fyp/utils/apis.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/user_detail.dart';
+
 class RegisterRepo {
   static Future<void> register({
     // required String email,
@@ -15,11 +17,12 @@ class RegisterRepo {
     required String memberEmail,
     required String memberPhone,
     required String memberAddress,
-    required String? memberHeight,
-    required String? memberWeight,
-    required String? memberToken,
-    required String? tokenExpiry,
-    required Function(String successMessage) onSuccess,
+    required String memberPassword,
+    String? memberHeight,
+    String? memberWeight,
+    String? memberToken,
+    String? tokenExpiry,
+    required Function(Users users, String token) onSuccess,
     required Function(String message) onError,
   }) async {
     try {
@@ -30,10 +33,11 @@ class RegisterRepo {
         "memberName" : memberName,
         "memberEmail" : memberEmail,
         "memberPhone" : memberPhone,
+        "memberPassword" : memberPassword,
         "memberAddress" : memberAddress,
         "memberHeight" : memberHeight,
         "memberWeight" : memberWeight,
-        "memberType": "customer"
+        "memberType": "1"
       };
       http.Response response = await http.post(
         Uri.parse(Apis.registerUrl),
@@ -46,7 +50,10 @@ class RegisterRepo {
       // log(data.toString());
       // if (response.statusCode >= 200 && response.statusCode <= 300) {
       if (response.statusCode == 200) {
-        onSuccess(data["message"]);
+        Users user = Users.fromJson(data["user"]);
+        String token = user.memberToken.toString();
+        // onSuccess(data["message"]);
+        onSuccess(user, token);
       } else {
         onError(data["message"]);
       }
