@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:fyp/controller/auth/login_controller.dart';
 import 'package:fyp/utils/colors.dart';
 import 'package:fyp/utils/custom_text_style.dart';
+import 'package:fyp/utils/validators.dart';
 import 'package:fyp/views/auth/register_screen.dart';
 import 'package:fyp/widgets/custom/custom_elevated_button.dart';
 
@@ -52,33 +52,80 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
+  // Widget _gymImgAndGreet() {
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),boxShadow: const [
+  //           BoxShadow(spreadRadius: 3)
+  //         ]),
+  //         child: CachedNetworkImage(
+  //           imageUrl:
+  //               "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  //           // height: 300,
+  //         ),
+  //       ),
+  //       // const SizedBox(
+  //       //   height: 20,
+  //       // ),
+  //       const SizedBox(
+  //         // height: 200,
+  //         child: ListTile(
+  //           title: Text(
+  //             "Welcome",
+  //             style: TextStyle(color: Colors.black87),
+  //           ),
+  //           subtitle: Text(
+  //             "Login in to continue",
+  //             style: TextStyle(color: Colors.black87),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
   Widget _gymImgAndGreet() {
     return Column(
       children: [
-        CachedNetworkImage(
-          imageUrl:
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: const [
+              BoxShadow(
+                spreadRadius: 2,
+                color: Colors.black12, // Adjust the color and opacity as needed
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              imageUrl:
               "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          // height: 300,
+              // height: 300, // Consider setting a fixed height or using AspectRatio for better control
+              fit: BoxFit.cover, // Use BoxFit.cover to ensure the image covers the entire container
+              placeholder: (context, url) => const CircularProgressIndicator(), // Optional: Show a loading indicator while the image is loading
+              errorWidget: (context, url, error) => const Icon(Icons.error), // Optional: Show an error icon if the image fails to load
+            ),
+          ),
         ),
-        // const SizedBox(
-        //   height: 20,
-        // ),
         const SizedBox(
-          // height: 200,
-          child: ListTile(
-            title: Text(
-              "Welcome",
-              style: TextStyle(color: Colors.black87),
-            ),
-            subtitle: Text(
-              "Login in to continue",
-              style: TextStyle(color: Colors.black87),
-            ),
+          height: 20, // Adjust the height as needed
+        ),
+        const ListTile(
+          title: Text(
+            "Welcome",
+            style: TextStyle(color: Colors.black87),
+          ),
+          subtitle: Text(
+            "Login in to continue",
+            style: TextStyle(color: Colors.black87),
           ),
         ),
       ],
     );
   }
+
 
   Widget _otherMethods() {
     // return Padding(
@@ -194,10 +241,12 @@ class _LogInScreenState extends State<LogInScreen> {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         controller: c.emailController,
-        // validator: emailValidator,
+        validator: Validators.checkEmailField,
+        textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           labelText: "Email",
           hintText: "Enter your email",
+          hintStyle: TextStyle(color: Colors.black38),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -212,10 +261,13 @@ class _LogInScreenState extends State<LogInScreen> {
       child: Obx(
         () => TextFormField(
           controller: c.passwordController,
+          validator: Validators.checkPasswordField,
           obscureText: c.passwordObscure.value,
+          textInputAction: TextInputAction.done,
           decoration: InputDecoration(
             labelText: "Password",
             hintText: "Enter your password",
+            hintStyle: TextStyle(color: Colors.black38),
             suffixIcon: IconButton(
               onPressed: () {
                 c.onEyeCLick();
