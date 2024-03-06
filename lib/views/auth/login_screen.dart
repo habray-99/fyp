@@ -11,11 +11,18 @@ import 'package:fyp/widgets/custom/custom_elevated_button.dart';
 
 import 'package:get/get.dart';
 
-class LogInScreen extends StatelessWidget {
+class LogInScreen extends StatefulWidget {
   static const String routeName = "/loginScreen";
 
   LogInScreen({super.key});
+
+  @override
+  State<LogInScreen> createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
   final c = Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,24 +131,6 @@ class LogInScreen extends StatelessWidget {
   }
 
   // Widget _signUp() {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(8.0),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       children: [
-  //         const Text("Don't have an account?"),
-  //         TextButton(
-  //           onPressed: () {
-  //             // Get.toNamed("/registerScreen");
-  //             Get.lazyPut(() => RegisterScreen());
-  //           },
-  //           child: const Text("Sign Up"),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _signUp() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -198,26 +187,14 @@ class LogInScreen extends StatelessWidget {
           }),
     );
   }
-  // Widget _loginButton(){
-  //   return Padding(
-  //     padding: const EdgeInsets.all(8.0),
-  //     child: SizedBox(
-  //       width: double.infinity,
-  //       child: ElevatedButton(
-  //         onPressed: () {
-  //           c.onSubmit();
-  //         },
-  //         child: const Text("Login"),
-  //       ),
-  //     ),
-  //   );
-  // }
 
+  // Widget _loginButton(){
   Widget _emailBuilder() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         controller: c.emailController,
+        // validator: emailValidator,
         decoration: InputDecoration(
           labelText: "Email",
           hintText: "Enter your email",
