@@ -13,6 +13,7 @@ import '../core_controller.dart';
 class SignUpController extends GetxController {
   final key = GlobalKey<FormState>();
   RxBool passwordObscure = true.obs;
+  RxBool passwordObscure2 = true.obs;
 
   final memberNameController = TextEditingController();
   final memberEmailController = TextEditingController();
@@ -29,6 +30,11 @@ class SignUpController extends GetxController {
   void onEyeCLick() {
     passwordObscure.value = !passwordObscure.value;
     print("Password obscure: ${passwordObscure.value}");
+  }
+
+  void onEyeCLick2() {
+    passwordObscure2.value = !passwordObscure2.value;
+    print("Password obscure: ${passwordObscure2.value}");
   }
 
   void onSubmit() async {
@@ -56,11 +62,11 @@ class SignUpController extends GetxController {
             Get.offAll(() => const HomePage());
             CustomSnackBar.success(title: "Login", message: "Login Successful");
           },
-          onError: (message){
+          onError: (message) {
             // loading.hide();
-            CustomSnackBar.error(title: "Registered Successfully", message: message);
-          }
-          );
+            CustomSnackBar.error(
+                title: "Registered Successfully", message: message);
+          });
     }
   }
 }
