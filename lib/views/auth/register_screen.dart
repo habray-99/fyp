@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/views/auth/login_screen.dart';
+import 'package:fyp/views/dashboard/home_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/auth/sign_up_controller.dart';
+import '../../widgets/custom/custom_elevated_button.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -86,7 +88,7 @@ class RegisterScreen extends StatelessWidget {
         decoration: InputDecoration(
           labelText: "Name",
           hintText: "Enter your name",
-          prefixIcon: const Icon(Icons.person),
+          // prefixIcon: const Icon(Icons.person),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -103,7 +105,7 @@ class RegisterScreen extends StatelessWidget {
         decoration: InputDecoration(
           labelText: "Email",
           hintText: "Enter your email",
-          prefixIcon: const Icon(Icons.email),
+          // prefixIcon: const Icon(Icons.email),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -120,7 +122,7 @@ class RegisterScreen extends StatelessWidget {
         decoration: InputDecoration(
           labelText: "Phone",
           hintText: "Enter your phone",
-          prefixIcon: const Icon(Icons.phone),
+          // prefixIcon: const Icon(Icons.phone),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -137,7 +139,7 @@ class RegisterScreen extends StatelessWidget {
         decoration: InputDecoration(
           labelText: "Address",
           hintText: "Enter your address",
-          prefixIcon: const Icon(Icons.location_on),
+          // prefixIcon: const Icon(Icons.location_on),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -156,7 +158,7 @@ class RegisterScreen extends StatelessWidget {
           decoration: InputDecoration(
             labelText: "Password",
             hintText: "Enter your password",
-            prefixIcon: const Icon(Icons.lock),
+            // prefixIcon: const Icon(Icons.lock),
             suffixIcon: IconButton(
               onPressed: () {
                 c.onEyeCLick();
@@ -184,7 +186,7 @@ class RegisterScreen extends StatelessWidget {
           decoration: InputDecoration(
             labelText: "Password",
             hintText: "ReEnter your password",
-            prefixIcon: const Icon(Icons.lock),
+            // prefixIcon: const Icon(Icons.lock),
             suffixIcon: IconButton(
               onPressed: () {
                 c.onEyeCLick2();
@@ -227,7 +229,7 @@ class RegisterScreen extends StatelessWidget {
         decoration: InputDecoration(
           labelText: "Height",
           hintText: "Enter your height",
-          prefixIcon: const Icon(Icons.height),
+          // prefixIcon: const Icon(Icons.height),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -244,7 +246,7 @@ class RegisterScreen extends StatelessWidget {
         decoration: InputDecoration(
           labelText: "Weight",
           hintText: "Enter your weight",
-          prefixIcon: const Icon(Icons.line_weight),
+          // prefixIcon: const Icon(Icons.line_weight),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -253,20 +255,30 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget _signUp() {
+  Widget _loginButton() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: () {
-            c.onSubmit();
-          },
-          child: const Text("Sign Up"),
-        ),
-      ),
+      child: CustomElevatedButton(
+          title: "Sign up",
+          onTap: () {
+            // Get.offAll(HomePage());
+          }),
     );
   }
+  // Widget _signUp() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: SizedBox(
+  //       width: double.infinity,
+  //       child: ElevatedButton(
+  //         onPressed: () {
+  //           c.onSubmit();
+  //         },
+  //         child: const Text("Sign Up"),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _otherMethods() {
     return Padding(
