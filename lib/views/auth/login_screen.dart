@@ -6,6 +6,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:fyp/controller/auth/login_controller.dart';
 import 'package:fyp/utils/colors.dart';
 import 'package:fyp/utils/custom_text_style.dart';
+import 'package:fyp/views/auth/register_screen.dart';
 import 'package:fyp/widgets/custom/custom_elevated_button.dart';
 
 import 'package:get/get.dart';
@@ -122,6 +123,25 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
+  // Widget _signUp() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         const Text("Don't have an account?"),
+  //         TextButton(
+  //           onPressed: () {
+  //             // Get.toNamed("/registerScreen");
+  //             Get.lazyPut(() => RegisterScreen());
+  //           },
+  //           child: const Text("Sign Up"),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget _signUp() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -131,7 +151,7 @@ class LogInScreen extends StatelessWidget {
           const Text("Don't have an account?"),
           TextButton(
             onPressed: () {
-              // Get.toNamed("/signUpScreen");
+              Get.to(() => RegisterScreen());
             },
             child: const Text("Sign Up"),
           ),
@@ -169,7 +189,14 @@ class LogInScreen extends StatelessWidget {
   }
 
   Widget _loginButton() {
-    return CustomElevatedButton(title: "Login", onTap: () {});
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CustomElevatedButton(
+          title: "Login",
+          onTap: () {
+            Get.lazyPut(() => RegisterScreen());
+          }),
+    );
   }
   // Widget _loginButton(){
   //   return Padding(
