@@ -8,6 +8,7 @@ import 'package:fyp/utils/storage_keys.dart';
 import 'package:fyp/views/dashboard/home_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 // import 'package:simple_fontellico_progress_dialog/simple_fontico_loading.dart';
 
 class LoginController extends GetxController {
@@ -32,16 +33,16 @@ class LoginController extends GetxController {
       //   message: 'Please wait',
       //   hideText: true,
       // );
-      await LoginRepo.login(
+       LoginRepo.login(
         email: emailController.text,
         password: passwordController.text,
         onSuccess: (user, token) async {
           // loading.hide();
           final box = GetStorage();
           await box.write(StorageKeys.USER, json.encode(user.toJson()));
-          await box.write(StorageKeys.ACCESS_TOKEN, token.toString());
+          await box.write(StorageKeys.ACCESS_TOKEN, token);
           Get.find<CoreController>().loadCurrentUser();
-          Get.offAll(() => const HomePage());
+          Get.offAll(HomePage());
           CustomSnackBar.success(title: "Login", message: "Login Successful");
         },
         onError: (message) {
