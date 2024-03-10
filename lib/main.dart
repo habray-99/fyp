@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       initialBinding: BindingsBuilder(() {
-        Get.put(() => CoreController());
+        Get.put(CoreController());
       }),
       // home: SplashScreen(),
       // home: RegisterScreen(),
