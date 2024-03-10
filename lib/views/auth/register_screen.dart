@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fyp/utils/validators.dart';
 import 'package:fyp/views/auth/login_screen.dart';
 import 'package:fyp/views/dashboard/home_page.dart';
@@ -32,15 +34,24 @@ class RegisterScreen extends StatelessWidget {
                   //   height: 20,
                   // ),
                   _gymImgAndGreet(),
-                  _nameBuilder(),
-                  _emailBuilder(),
-                  _phoneBuilder(),
-                  _addressBuilder(),
-                  _passwordBuilder(),
-                  _rePasswordBuilder(),
-                  _heightBuilder(),
-                  _weightBuilder(),
-                  _signUp(),
+                  Form(
+                    key: c.key,
+                    child: Column(
+                      children: [
+                        _nameBuilder(),
+                        _emailBuilder(),
+                        _passwordBuilder(),
+                        _rePasswordBuilder(),
+                        _phoneBuilder(),
+                        _addressBuilder(),
+                        _heightBuilder(),
+                        _weightBuilder(),
+                        _checker(),
+                        _signUp(),
+                      ],
+                    ),
+                  ),
+                  // _userTypeToggle(),
                   _otherMethods(),
                 ],
               ),
@@ -51,16 +62,47 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
+  Widget _checker() {
+    return Column(
+      children: [
+        const ListTile(
+          title: Text('User Type'),
+          subtitle: Text('Please select your user type'),
+        ),
+        Obx(() => RadioListTile<String>(
+              title: const Text('Member'),
+              value: '1',
+              groupValue: c.userType.value,
+              onChanged: (String? value) {
+                c.changeUserType(value!);
+              },
+            )),
+        Obx(() => RadioListTile<String>(
+              title: const Text('Gym Owner'),
+              value: '2',
+              groupValue: c.userType.value,
+              onChanged: (String? value) {
+                c.changeUserType(value!);
+              },
+            )),
+      ],
+    );
+  }
+
   Widget _gymImgAndGreet() {
     return Column(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(5), // Adjust the border radius as needed
-          child: CachedNetworkImage(imageUrl:
-            "https://images.unsplash.com/photo-1577221084712-45b0445d2b00?q=80&w=1898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          borderRadius:
+              BorderRadius.circular(5), // Adjust the border radius as needed
+          child: CachedNetworkImage(
+            imageUrl:
+                "https://images.unsplash.com/photo-1577221084712-45b0445d2b00?q=80&w=1898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             // height: 300, // Consider setting a fixed height or using AspectRatio for better control
-            fit: BoxFit.cover, // Use BoxFit.cover to ensure the image covers the entire container
-            placeholder: (context, url) => const CircularProgressIndicator(), // Optional: Show a loading indicator while the image is loading
+            fit: BoxFit
+                .cover, // Use BoxFit.cover to ensure the image covers the entire container
+            placeholder: (context, url) =>
+                const CircularProgressIndicator(), // Optional: Show a loading indicator while the image is loading
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
         ),
@@ -87,6 +129,217 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
+  Widget _nameBuilder() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: c.memberNameController,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          labelText: "Name",
+          hintText: "Enter your name",
+          hintStyle: const TextStyle(color: Colors.black38),
+          // prefixIcon: const Icon(Icons.person),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _emailBuilder() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: c.memberEmailController,
+        validator: Validators.checkEmailField,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          labelText: "Email",
+          hintText: "Enter your email",
+          hintStyle: const TextStyle(color: Colors.black38),
+          // prefixIcon: const Icon(Icons.email),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _passwordBuilder() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Obx(
+        () => TextFormField(
+          controller: c.memberPasswordController,
+          obscureText: c.passwordObscure.value,
+          textInputAction: TextInputAction.next,
+          validator: Validators.checkPasswordField,
+          decoration: InputDecoration(
+            labelText: "Password",
+            hintText: "Enter your password",
+            hintStyle: const TextStyle(color: Colors.black38),
+            // prefixIcon: const Icon(Icons.lock),
+            suffixIcon: IconButton(
+              onPressed: () {
+                c.onEyeCLick();
+              },
+              icon: c.passwordObscure.value
+                  ? const Icon(Icons.visibility_off)
+                  : const Icon(Icons.visibility),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _rePasswordBuilder() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Obx(
+        () => TextFormField(
+          controller: c.rePasswordController,
+          obscureText: c.passwordObscure2.value,
+          textInputAction: TextInputAction.next,
+          validator: Validators.checkPasswordField,
+          decoration: InputDecoration(
+            labelText: "Re enter Password",
+            hintText: "ReEnter your password",
+            hintStyle: const TextStyle(color: Colors.black38),
+            // prefixIcon: const Icon(Icons.lock),
+            suffixIcon: IconButton(
+              onPressed: () {
+                c.onEyeCLick2();
+              },
+              icon: c.passwordObscure2.value
+                  ? const Icon(Icons.visibility_off)
+                  : const Icon(Icons.visibility),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _phoneBuilder() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: c.memberPhoneController,
+        validator: Validators.checkPhoneField,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          labelText: "Phone",
+          hintText: "Enter your phone",
+          hintStyle: const TextStyle(color: Colors.black38),
+          // prefixIcon: const Icon(Icons.phone),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _addressBuilder() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: c.memberAddressController,
+        validator: Validators.checkFieldEmpty,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          labelText: "Address",
+          hintText: "Enter your address",
+          hintStyle: const TextStyle(color: Colors.black38),
+          // prefixIcon: const Icon(Icons.location_on),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _heightBuilder() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: c.memberHeightController,
+        validator: Validators.heightValidator,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          labelText: "Height (Optional)",
+          hintText: "Enter your height",
+          hintStyle: const TextStyle(color: Colors.black38),
+          // prefixIcon: const Icon(Icons.height),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _weightBuilder() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: c.memberWeightController,
+        validator: Validators.weightValidator,
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          labelText: "Weight (Optional)",
+          hintText: "Enter your weight",
+          hintStyle: const TextStyle(color: Colors.black38),
+          // prefixIcon: const Icon(Icons.line_weight),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _signUp() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CustomElevatedButton(
+          title: "Sign up",
+          onTap: () {
+            // Get.offAll(HomePage());
+            c.onSubmit();
+          }),
+    );
+  }
+
+  Widget _otherMethods() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("Already have an account?"),
+          TextButton(
+            onPressed: () {
+              // Get.put(() => LogInScreen());
+              Get.back();
+            },
+            child: const Text("Login"),
+          ),
+        ],
+      ),
+    );
+  }
 
   // Widget _gymImgAndGreet() {
   //   return Column(
@@ -120,149 +373,22 @@ class RegisterScreen extends StatelessWidget {
   //     ],
   //   );
   // }
-
-  Widget _nameBuilder() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        controller: c.memberNameController,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          labelText: "Name",
-          hintText: "Enter your name",
-          hintStyle: TextStyle(color: Colors.black38),
-          // prefixIcon: const Icon(Icons.person),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _emailBuilder() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        controller: c.memberEmailController,
-        validator: Validators.checkEmailField,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          labelText: "Email",
-          hintText: "Enter your email",
-          hintStyle: TextStyle(color: Colors.black38),
-          // prefixIcon: const Icon(Icons.email),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _phoneBuilder() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        controller: c.memberPhoneController,
-        validator: Validators.checkPhoneField,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          labelText: "Phone",
-          hintText: "Enter your phone",
-          hintStyle: TextStyle(color: Colors.black38),
-          // prefixIcon: const Icon(Icons.phone),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _addressBuilder() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        controller: c.memberAddressController,
-        validator: Validators.checkFieldEmpty,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          labelText: "Address",
-          hintText: "Enter your address",
-          hintStyle: TextStyle(color: Colors.black38),
-          // prefixIcon: const Icon(Icons.location_on),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _passwordBuilder() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Obx(
-        () => TextFormField(
-          controller: c.memberPasswordController,
-          obscureText: c.passwordObscure.value,
-          textInputAction: TextInputAction.next,
-          validator: Validators.checkPasswordField,
-          decoration: InputDecoration(
-            labelText: "Password",
-            hintText: "Enter your password",
-            hintStyle: TextStyle(color: Colors.black38),
-            // prefixIcon: const Icon(Icons.lock),
-            suffixIcon: IconButton(
-              onPressed: () {
-                c.onEyeCLick();
-              },
-              icon: c.passwordObscure.value
-                  ? const Icon(Icons.visibility_off)
-                  : const Icon(Icons.visibility),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-
-        ),
-      ),
-    );
-  }
-
-  Widget _rePasswordBuilder() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Obx(
-        () => TextFormField(
-          controller: c.rePasswordController,
-          obscureText: c.passwordObscure2.value,
-          textInputAction: TextInputAction.next,
-          validator: Validators.checkPasswordField,
-          decoration: InputDecoration(
-            labelText: "Re enter Password",
-            hintText: "ReEnter your password",
-            hintStyle: TextStyle(color: Colors.black38),
-            // prefixIcon: const Icon(Icons.lock),
-            suffixIcon: IconButton(
-              onPressed: () {
-                c.onEyeCLick2();
-              },
-              icon: c.passwordObscure2.value
-                  ? const Icon(Icons.visibility_off)
-                  : const Icon(Icons.visibility),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
+  // Widget _checker() {
+  // }
+  // Widget _signUp() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: SizedBox(
+  //       width: double.infinity,
+  //       child: ElevatedButton(
+  //         onPressed: () {
+  //           c.onSubmit();
+  //         },
+  //         child: const Text("Sign Up"),
+  //       ),
+  //     ),
+  //   );
+  // }
   // Widget _rePasswordBuilder() {
   //   return Padding(
   //     padding: const EdgeInsets.all(8.0),
@@ -279,86 +405,4 @@ class RegisterScreen extends StatelessWidget {
   //     ),
   //   );
   // }
-
-  Widget _heightBuilder() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        controller: c.memberHeightController,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          labelText: "Height",
-          hintText: "Enter your height",
-          hintStyle: TextStyle(color: Colors.black38),
-          // prefixIcon: const Icon(Icons.height),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _weightBuilder() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        controller: c.memberWeightController,
-        textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          labelText: "Weight",
-          hintText: "Enter your weight",
-          hintStyle: TextStyle(color: Colors.black38),
-          // prefixIcon: const Icon(Icons.line_weight),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _signUp() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CustomElevatedButton(
-          title: "Sign up",
-          onTap: () {
-            // Get.offAll(HomePage());
-          }),
-    );
-  }
-  // Widget _signUp() {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(8.0),
-  //     child: SizedBox(
-  //       width: double.infinity,
-  //       child: ElevatedButton(
-  //         onPressed: () {
-  //           c.onSubmit();
-  //         },
-  //         child: const Text("Sign Up"),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  Widget _otherMethods() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text("Already have an account?"),
-          TextButton(
-            onPressed: () {
-              // Get.put(() => LogInScreen());
-              Get.back();
-            },
-            child: const Text("Login"),
-          ),
-        ],
-      ),
-    );
-  }
 }
