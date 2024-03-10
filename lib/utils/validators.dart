@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:get/get.dart';
 
 class Validators {
@@ -74,4 +70,20 @@ class Validators {
     }
     return null;
   }
+
+  static String? Function(String?) heightValidator = (String? value) {
+    if (value == null || value.isEmpty) {
+      return null; // Return null if the input is empty or meets your criteria
+    }
+    // Add any additional validation logic here
+    return null;
+  };
+
+  static String? Function(String?) weightValidator = (String? value) {
+    if (value == null || value.isEmpty) {
+      return null; // Return null if the input is empty or meets your criteria
+    }
+    // Add any additional validation logic here
+    return null;
+  };
 }
