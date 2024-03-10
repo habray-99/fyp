@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-
 import 'package:fyp/utils/apis.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,10 +8,6 @@ import '../model/user_detail.dart';
 
 class RegisterRepo {
   static Future<void> register({
-    // required String email,
-    // required String name,
-    // required String phoneNumber,
-    // required String password,
     required String memberName,
     required String memberEmail,
     required String memberPhone,
@@ -20,8 +15,7 @@ class RegisterRepo {
     required String memberPassword,
     String? memberHeight,
     String? memberWeight,
-    String? memberToken,
-    String? tokenExpiry,
+    String? memberType,
     required Function(Users users, String token) onSuccess,
     required Function(String message) onError,
   }) async {
@@ -30,18 +24,18 @@ class RegisterRepo {
         "Accept": "application/json",
       };
       var body = {
-        "memberName" : memberName,
-        "memberEmail" : memberEmail,
-        "memberPhone" : memberPhone,
-        "memberPassword" : memberPassword,
-        "memberAddress" : memberAddress,
-        "memberHeight" : memberHeight,
-        "memberWeight" : memberWeight,
-        "memberType": "1"
+        "member_name": memberName,
+        "member_email": memberEmail,
+        "member_phone": memberPhone,
+        "member_password": memberPassword,
+        "member_address": memberAddress,
+        "member_height": memberHeight,
+        "member_weight": memberWeight,
+        "member_type": memberType,
       };
       http.Response response = await http.post(
         Uri.parse(Apis.registerUrl),
-        headers: header,
+        // headers: header,
         body: body,
       );
       log(body.toString());
@@ -50,7 +44,8 @@ class RegisterRepo {
       // log(data.toString());
       // if (response.statusCode >= 200 && response.statusCode <= 300) {
       if (response.statusCode == 200) {
-        Users user = Users.fromJson(data["user"]);
+        log(data.toString());
+        Users user = Users.fromJson(data["member"]);
         String token = user.memberToken.toString();
         // onSuccess(data["message"]);
         onSuccess(user, token);
