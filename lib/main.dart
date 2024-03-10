@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 // import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import 'controller/core_controller.dart';
+import 'views/auth/register_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         Get.put(() => CoreController());
       }),
       // home: SplashScreen(),
+      // home: RegisterScreen(),
       home: LogInScreen(),
     );
   }
