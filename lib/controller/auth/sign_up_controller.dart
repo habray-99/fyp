@@ -27,6 +27,12 @@ class SignUpController extends GetxController {
   final memberTypeController = TextEditingController();
   final tokenExpiryController = TextEditingController();
 
+  var userType = '1'.obs;
+
+  void changeUserType(String value) {
+    userType.value = value;
+  }
+
   void onEyeCLick() {
     passwordObscure.value = !passwordObscure.value;
     print("Password obscure: ${passwordObscure.value}");
@@ -49,23 +55,22 @@ class SignUpController extends GetxController {
           memberPhone: memberPhoneController.text,
           memberAddress: memberAddressController.text,
           memberPassword: memberPasswordController.text,
-          memberHeight: memberHeightController.text,
-          memberWeight: memberWeightController.text,
-          memberToken: memberTokenController.text,
-          tokenExpiry: tokenExpiryController.text,
+          memberHeight: memberHeightController.text.toString(),
+          memberWeight: memberWeightController.text.toString(),
+          memberType: userType.value,
           onSuccess: (user, token) async {
             // loading.hide();
             final box = GetStorage();
             await box.write(StorageKeys.USER, json.encode(user.toJson()));
             await box.write(StorageKeys.ACCESS_TOKEN, token.toString());
             Get.find<CoreController>().loadCurrentUser();
-            Get.offAll(() => const HomePage());
-            CustomSnackBar.success(title: "Login", message: "Login Successful");
+            Get.offAll(HomePage());
+            CustomSnackBar.success(title: "Registered Successfully", message: "Registered Successfully");
           },
           onError: (message) {
             // loading.hide();
             CustomSnackBar.error(
-                title: "Registered Successfully", message: message);
+                title: "Error", message: message);
           });
     }
   }
