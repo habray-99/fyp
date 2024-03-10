@@ -41,7 +41,34 @@
 //     );
 //   }
 // }
-
+// Users.fromJson(Map<String, dynamic> json) => Welcome(
+//   memberId: json["member_id"],
+//   memberName: json["member_name"],
+//   memberEmail: json["member_email"],
+//   memberPhone: json["member_phone"],
+//   memberAddress: json["member_address"],
+//   memberHeight: json["member_height"],
+//   memberWeight: json["member_weight"],
+//   memberToken: json["member_token"],
+//   memberType: json["member_type"],
+//   tokenExpiry: json["token_expiry"] == null ? null : DateTime.parse(json["token_expiry"]),
+// );
+//
+// Map<String, dynamic> toJson() {
+//   final Map<String, dynamic> data = <String, dynamic>{};
+//   data['member_id'] = memberId;
+//   data['member_name'] = memberName;
+//   data['member_email'] = memberEmail;
+//   data['member_phone'] = memberPhone;
+//   data['member_address'] = memberAddress;
+//   data['member_password'] = memberPassword;
+//   data['member_height'] = memberHeight;
+//   data['member_weight'] = memberWeight;
+//   data['member_token'] = memberToken;
+//   data['member_type'] = memberType;
+//   data['token_expiry'] = tokenExpiry;
+//   return data;
+// }
 class Users {
   int? memberId;
   String? memberName;
@@ -52,8 +79,8 @@ class Users {
   String? memberHeight;
   String? memberWeight;
   String? memberToken;
-  String? memberType;
-  String? tokenExpiry;
+  int? memberType;
+  DateTime? tokenExpiry;
 
   Users(
       {this.memberId,
@@ -67,34 +94,27 @@ class Users {
       this.memberToken,
       this.memberType,
       this.tokenExpiry});
+  factory Users.fromJson(Map<String, dynamic> json) => Users(
+    memberId: json["member_id"],
+    memberName: json["member_name"],
+    memberEmail: json["member_email"],
+    memberPhone: json["member_phone"],
+    memberAddress: json["member_address"],
+    memberHeight: json["member_height"],
+    memberWeight: json["member_weight"],
+    memberToken: json["member_token"],
+    memberType: json["member_type"],
+    tokenExpiry: json["token_expiry"] == null ? null : DateTime.parse(json["token_expiry"]),
+  );
 
-  Users.fromJson(Map<String, dynamic> json) {
-    memberId = json['member_id'];
-    memberName = json['member_name'];
-    memberEmail = json['member_email'];
-    memberPhone = json['member_phone'];
-    memberAddress = json['member_address'];
-    memberPassword = json['member_password'];
-    memberHeight = json['member_height'];
-    memberWeight = json['member_weight'];
-    memberToken = json['member_token'];
-    memberType = json['member_type'];
-    tokenExpiry = json['token_expiry'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['member_id'] = memberId;
-    data['member_name'] = memberName;
-    data['member_email'] = memberEmail;
-    data['member_phone'] = memberPhone;
-    data['member_address'] = memberAddress;
-    data['member_password'] = memberPassword;
-    data['member_height'] = memberHeight;
-    data['member_weight'] = memberWeight;
-    data['member_token'] = memberToken;
-    data['member_type'] = memberType;
-    data['token_expiry'] = tokenExpiry;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "member_id": memberId,
+    "member_name": memberName,
+    "member_email": memberEmail,
+    "member_phone": memberPhone,
+    "member_address": memberAddress,
+    "member_height": memberHeight,
+    "member_weight": memberWeight,
+    "member_type": memberType,
+  };
 }
