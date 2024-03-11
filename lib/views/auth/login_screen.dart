@@ -181,7 +181,7 @@ class _LogInScreenState extends State<LogInScreen> {
           SignInButton(
             Buttons.Email,
             text: "Skip",
-            onPressed: () {},
+            onPressed: () {Get.offAll(() => HomePage());},
           )
         ],
       ),

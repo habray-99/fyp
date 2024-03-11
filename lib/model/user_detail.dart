@@ -116,5 +116,6 @@ class Users {
     "member_height": memberHeight,
     "member_weight": memberWeight,
     "member_type": memberType,
+    "member_token": memberToken,
   };
 }

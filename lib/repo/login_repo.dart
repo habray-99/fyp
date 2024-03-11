@@ -25,23 +25,19 @@ class LoginRepo {
       };
 
       print(body);
-      var url = Uri.http('172.16.18.31', 'fyp_backend/apis/login.php');
+      // var url = Uri.http('172.16.18.31', 'fyp_backend/apis/login.php');
       // "type": "customer",
-      // var response = await http.post(
-      //   // Uri.parse(Apis.loginUrl),
-
-      //   ,
-      //   headers: header,
-      //   body: body,
-      // );
-      print(url);
-      var response = await http.post(url, body: body);
+      var response = await http.post(
+        Uri.parse(Apis.loginUrl),
+        headers: header,
+        body: body,
+      );
+      // var response = await http.post(url, body: body);
 
       dynamic data = jsonDecode(response.body);
-      print(data);
       if (response.statusCode >= 200 && response.statusCode < 300) {
         // String token = data["token"].toString();
-        Users user = Users.fromJson(data["user"]);
+        Users user = Users.fromJson(data["member"]);
         String? token = user.memberToken?.toString();
         onSuccess(user, token);
       } else {
@@ -50,10 +46,7 @@ class LoginRepo {
     } catch (e, s) {
       log(e.toString());
       log(s.toString());
-      // String m = $'';
-      String m1 = e.toString();
-      String m2 = s.toString();
-      onError("Something went wrong \n$m1\n $m2");
+      onError("Something went wrong.");
     }
   }
 }
