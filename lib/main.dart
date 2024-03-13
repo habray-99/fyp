@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
       initialBinding: BindingsBuilder(() {
         Get.put(CoreController());
       }),
-      // home: SplashScreen(),
+      home: SplashScreen(),
       // home: RegisterScreen(),
-      home: LogInScreen(),
+      // home: LogInScreen(),
     );
   }
 }
