@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,19 +10,23 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade700,
+      // backgroundColor: Colors.grey.shade700,
       body: const Column(
         children: [
           Center(
             child: SizedBox(
-              // child: Image(
-              //   image: AssetImage(
-              //     ImagePath.loginBackGround,
-              //     // ImagePath.splashLogo,
-              //   ),
-              //   height: 200,
-              //   width:200,
-              // ),
+              child: Image(
+                // image: AssetImage(
+                //   // ImagePath.loginBackGround,
+                //   // CachedNetworkImage(imageUrl: "https://images.unsplash.com/photo-1709403338549-10e6b0e24c3f?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",)
+
+                //   // ImagePath.splashLogo,
+                // ),
+                image: NetworkImage(
+                    "https://images.unsplash.com/photo-1709403338549-10e6b0e24c3f?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                height: 200,
+                width: 200,
+              ),
             ),
           ),
           CircularProgressIndicator()
