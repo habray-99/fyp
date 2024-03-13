@@ -18,8 +18,8 @@ class LoginController extends GetxController {
   final passwordController = TextEditingController();
   final emailController = TextEditingController();
 
-  // final loading = SimpleFontelicoProgressDialog(
-  //     context: Get.context!, barrierDimisable: false);
+  final loading = SimpleFontelicoProgressDialog(
+      context: Get.context!, barrierDimisable: false);
 
   RxBool isChecked = false.obs;
   void onEyeCLick() {
@@ -29,10 +29,10 @@ class LoginController extends GetxController {
 
   void onSubmit() async {
     if (key.currentState!.validate()) {
-      // loading.show(
-      //   message: 'Please wait',
-      //   hideText: true,
-      // );
+      loading.show(
+        message: 'Please wait',
+        hideText: true,
+      );
        LoginRepo.login(
         email: emailController.text,
         password: passwordController.text,
@@ -46,7 +46,7 @@ class LoginController extends GetxController {
           CustomSnackBar.success(title: "Login", message: "Login Successful");
         },
         onError: (message) {
-          // loading.hide();
+          loading.hide();
           CustomSnackBar.error(title: "Login", message: message);
         },
       );
