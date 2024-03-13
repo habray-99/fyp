@@ -7,7 +7,7 @@ class QuoteDetailPage extends StatelessWidget {
   final Quote quote;
   final QuoteRepository quoteRepository = QuoteRepository();
 
-  QuoteDetailPage({required this.quote});
+  QuoteDetailPage({super.key, required this.quote});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class QuoteDetailPage extends StatelessWidget {
                   tag: 'quote-${quoteRepository.getQuotes().indexOf(quote)}',
                   child: Text(
                     quote.text,
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 ),
                 // Add any additional buttons or actions here
