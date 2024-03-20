@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/controller/core_controller.dart';
 import 'package:fyp/views/dashboard/all_gyms_list.dart';
+import 'package:fyp/views/dashboard/calories_calculator_page.dart';
 import 'package:fyp/views/dashboard/quote_list_page.dart';
 import 'package:fyp/widgets/custom/custom_elevated_button.dart';
 import 'package:get/get.dart';
@@ -48,6 +49,15 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   // Update the state of the app.
                   // ...
+                  // Get.to(() => QuoteListPage());
+                  Get.to(() => CaloriesCalculatorPage());
+                },
+              ),
+              ListTile(
+                title: const Text('Get Motivated'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
                   Get.to(() => QuoteListPage());
                 },
               ),
@@ -75,7 +85,9 @@ class HomePage extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                  "Welcome ${c.currentUser.value?.memberName?.split(' ').first}"),
+                "Welcome ${c.currentUser.value?.memberName?.split(' ').first}",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
               // subtitle: Text(
               // "You are logged in as ${c.currentUser.value?.memberName}"),
               // ),
