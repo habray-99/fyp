@@ -33,6 +33,6 @@ class CoreController extends GetxController {
     await box.write(StorageKeys.ACCESS_TOKEN, null);
     await box.write(StorageKeys.USER, null);
     loadCurrentUser();
-    Get.offAll(() => LogInScreen());
+    Get.offAll(() => const LogInScreen());
   }
 }
