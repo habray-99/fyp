@@ -42,7 +42,7 @@ class LoginController extends GetxController {
           await box.write(StorageKeys.USER, json.encode(user.toJson()));
           await box.write(StorageKeys.ACCESS_TOKEN, token);
           Get.find<CoreController>().loadCurrentUser();
-          Get.offAll(HomePage());
+          Get.offAll(() => HomePage());
           CustomSnackBar.success(title: "Login", message: "Login Successful");
         },
         onError: (message) {
