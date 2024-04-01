@@ -1,3 +1,5 @@
+
+
 class Gyms {
   int? gymId;
   String? gymName;
@@ -5,6 +7,7 @@ class Gyms {
   String? gymPhone;
   String? gymEmail;
   String? gymPhotos;
+  int? gymPrice;
 
   Gyms({
     this.gymId,
@@ -13,6 +16,7 @@ class Gyms {
     this.gymPhone,
     this.gymEmail,
     this.gymPhotos,
+    this.gymPrice,
   });
 
   factory Gyms.fromJson(Map<String, dynamic> json) {
@@ -23,6 +27,8 @@ class Gyms {
       gymPhone: json['gym_phone'],
       gymEmail: json['gym_email'],
       gymPhotos: json['gym_photos'],
+      gymPrice: json['gym_price'],
+
     );
   }
 
@@ -34,6 +40,7 @@ class Gyms {
       'gym_phone': gymPhone,
       'gym_email': gymEmail,
       'gym_photos': gymPhotos,
+      'gym_price': gymPrice,
     };
   }
 }
