@@ -21,7 +21,7 @@ class SplashScreenController extends GetxController {
       if (c.isUserLoggedIn()) {
         Get.offAll(() => HomePage());
       } else {
-        Get.offAll(() => LogInScreen());
+        Get.offAll(() => const LogInScreen());
       }
     });
     super.onInit();
