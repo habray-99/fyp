@@ -61,6 +61,7 @@ class ExerciseRecommendationPage extends StatelessWidget {
                   "Exercise description: ${recommendation.desc == '' ? 'Currently not Available' : recommendation.desc}",
                   // style: const TextStyle()
                   textAlign: TextAlign.justify,
+                  style: const TextStyle(overflow: TextOverflow.ellipsis),
                 ),
               ),
               Padding(
