@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,9 +8,9 @@ class SplashScreen extends StatelessWidget {
   final c = Get.put(SplashScreenController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       // backgroundColor: Colors.grey.shade700,
-      body: const Column(
+      body: Column(
         children: [
           Center(
             child: SizedBox(
