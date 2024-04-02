@@ -38,7 +38,7 @@ class LoginRepo {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         // String token = data["token"].toString();
         Users user = Users.fromJson(data["member"]);
-        String? token = user.memberToken?.toString();
+        String token = data["Token"].toString();
         onSuccess(user, token);
       } else {
         onError(data["message"].toString());
