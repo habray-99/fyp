@@ -1,11 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:fyp/controller/auth/login_controller.dart';
-import 'package:fyp/utils/colors.dart';
-import 'package:fyp/utils/custom_text_style.dart';
 import 'package:fyp/utils/validators.dart';
 import 'package:fyp/views/auth/register_screen.dart';
 import 'package:fyp/views/dashboard/home_page.dart';
@@ -16,7 +12,7 @@ import 'package:get/get.dart';
 class LogInScreen extends StatefulWidget {
   static const String routeName = "/loginScreen";
 
-  LogInScreen({super.key});
+  const LogInScreen({super.key});
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -181,7 +177,9 @@ class _LogInScreenState extends State<LogInScreen> {
           SignInButton(
             Buttons.Email,
             text: "Skip",
-            onPressed: () {Get.offAll(() => HomePage());},
+            onPressed: () {
+              Get.offAll(() => HomePage());
+            },
           )
         ],
       ),
