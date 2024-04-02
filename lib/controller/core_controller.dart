@@ -18,9 +18,9 @@ class CoreController extends GetxController {
 
   Future<void> loadCurrentUser() async {
     currentUser.value = StorageHelper.getUser();
-    // userToken?.value = StorageHelper.getToken();
+    userToken.value = StorageHelper.getToken() ?? "";
     // log("current user----------------------- ${currentUser.value?.memberEmail}-");
-    // log("current user token----------------------- ${userToken.value}-");
+    log("current user token----------------------- ${userToken.value}-");
     // log("current user token----------------------- ${currentUser.value?.memberToken}-");
   }
 
@@ -30,7 +30,7 @@ class CoreController extends GetxController {
 
   void logOut() async {
     final box = GetStorage();
-    await box.write(StorageKeys.ACCESS_TOKEN, null);
+    // await box.write(StorageKeys.ACCESS_TOKEN, null);
     await box.write(StorageKeys.USER, null);
     loadCurrentUser();
     Get.offAll(() => const LogInScreen());
