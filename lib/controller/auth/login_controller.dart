@@ -33,11 +33,11 @@ class LoginController extends GetxController {
         message: 'Please wait',
         hideText: true,
       );
-       LoginRepo.login(
+      LoginRepo.login(
         email: emailController.text,
         password: passwordController.text,
         onSuccess: (user, token) async {
-          // loading.hide();
+          loading.hide();
           final box = GetStorage();
           await box.write(StorageKeys.USER, json.encode(user.toJson()));
           await box.write(StorageKeys.ACCESS_TOKEN, token);
