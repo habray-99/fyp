@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../../model/gym_detail.dart';
 
 class GymListPage extends StatefulWidget {
-  GymListPage({Key? key}) : super(key: key);
+  const GymListPage({super.key});
 
   @override
   _GymListPageState createState() => _GymListPageState();
