@@ -8,12 +8,13 @@ import '../utils/storage_keys.dart';
 import 'package:http/http.dart' as http;
 
 class BookingRepo {
-  static Future<void> addBooking({
-    required String docId,
+  Future<void> addBooking({
+    required String gymID,
     required String date,
     required String month,
     required Function() onSuccess,
-    required Function(String message) onError, required String amount,
+    required Function(String message) onError,
+    String? amount,
   }) async {
     try {
       var token = StorageHelper.getToken();
@@ -21,10 +22,10 @@ class BookingRepo {
         "Accept": "application/json",
       };
       var body = {
-        "gymID": docId,
+        "gymID": gymID,
         "token": token,
         "date": date,
-        "months":month,
+        "months": month,
         "amount": amount,
         "status": "paid",
       };
