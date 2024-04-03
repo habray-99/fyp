@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:fyp/utils/http_request.dart';
-
 import '../utils/apis.dart';
 import '../utils/storage_keys.dart';
 import 'package:http/http.dart' as http;
@@ -21,24 +19,28 @@ class BookingRepo {
       var headers = {
         "Accept": "application/json",
       };
+
+      var userId = StorageHelper.getUser()?.memberId.toString();
       var body = {
         "gymID": gymID,
         "token": token,
+        "userID": userId,
         "date": date,
         "months": month,
-        "amount": amount,
+        // "amount": amount,
         "status": "paid",
       };
-      http.Response response = await HttpRequest.post(
-          Uri.parse(Apis.addBooking),
-          headers: headers,
-          body: body);
-      // log();
+      var response = await http.post(Uri.parse(Apis.paymentDetail),
+          headers: headers, body: body);
+      log(response.body); // Logs the response body
+      log(response.statusCode.toString()); // Logs the status code
+
+      log(response as String);
       log(json.encode(body));
       log(response.body);
 
       dynamic data = jsonDecode(response.body);
-      if (data["success"] == true) {
+      if (data["status"] == "success") {
         onSuccess();
       } else {
         onError(data["message"]);
