@@ -126,24 +126,26 @@ import 'dart:async';
 //     );
 //   }
 // }
-// 
+//
 import 'package:flutter/material.dart';
 
 class NfcGeneratorAnimation extends StatefulWidget {
- @override
- _NfcGeneratorAnimationState createState() => _NfcGeneratorAnimationState();
+  const NfcGeneratorAnimation({super.key});
+
+  @override
+  _NfcGeneratorAnimationState createState() => _NfcGeneratorAnimationState();
 }
 
 class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation> {
- bool _isCountingDown = false;
- int _secondsLeft = 60;
- Timer? _timer;
+  bool _isCountingDown = false;
+  int _secondsLeft = 60;
+  Timer? _timer;
 
- void _startCountdown() {
+  void _startCountdown() {
     setState(() {
       _isCountingDown = true;
     });
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_secondsLeft > 0) {
           _secondsLeft--;
@@ -156,23 +158,23 @@ class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation> {
         }
       });
     });
- }
+  }
 
- @override
- void dispose() {
+  @override
+  void dispose() {
     _timer?.cancel();
     super.dispose();
- }
+  }
 
- @override
- Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: GestureDetector(
         onTap: _isCountingDown ? _resetCountdown : _startCountdown,
         child: Container(
           width: MediaQuery.of(context).size.width / 2.5,
           height: MediaQuery.of(context).size.width / 2.5,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.blue,
           ),
@@ -180,29 +182,29 @@ class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation> {
             child: _isCountingDown
                 ? Text(
                     "$_secondsLeft",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
-                 )
-                : Text(
+                  )
+                : const Text(
                     "Generate NFC",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
-                 ),
+                  ),
           ),
         ),
       ),
     );
- }
+  }
 
- void _resetCountdown() {
+  void _resetCountdown() {
     setState(() {
       _isCountingDown = false;
       _secondsLeft = 60; // Reset the countdown to 60 seconds
     });
     _timer?.cancel(); // Cancel the current timer
- }
+  }
 }
