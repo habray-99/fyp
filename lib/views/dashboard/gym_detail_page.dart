@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:fyp/controller/esewa_controller.dart';
+import 'package:fyp/controller/dashboard/gym_detail_controller.dart';
+import 'package:fyp/views/dashboard/payments_option_page.dart';
 import 'package:fyp/widgets/custom/custom_elevated_button.dart';
 // import 'package:fyp/model/gyms.dart'; // Make sure to import your Gyms model
 import 'package:get/get.dart';
-import 'package:khalti_flutter/khalti_flutter.dart';
+import 'package:intl/intl.dart';
 
+import '../../controller/dashboard/home_controller.dart';
 import '../../model/gym_detail.dart';
 
 class GymDetailPage extends StatelessWidget {
   final Gyms gym;
 
-  const GymDetailPage({super.key, required this.gym});
+//   DateTime _selectedDate = DateTime.now();
+//  int _months = 1;
+
+  GymDetailPage({super.key, required this.gym});
+
+  final c = Get.put(HomeScreenController());
+  final controller = Get.put(GymDetailPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,44 +42,126 @@ class GymDetailPage extends StatelessWidget {
               Text('Address: ${gym.gymAddress ?? 'Address not available'}'),
               Text('Phone: ${gym.gymPhone ?? 'Phone not available'}'),
               Text('Email: ${gym.gymEmail ?? 'Email not available'}'),
+              Text("Price: ${gym.gymPrice ?? 'Price not available'}"),
               // Assuming gymPhotos is a comma-separated string of URLs
               Text('Photos: ${gym.gymPhotos ?? 'No photos available'}'),
-              CustomElevatedButton(
-                  title: "Esewa",
-                  onTap: () {
-                    ESewa eSewa = ESewa();
-                    eSewa.pay();
-                  }),
-              CustomElevatedButton(
-                  title: "Khalti",
-                  onTap: () {
-                    KhaltiScope.of(context).pay(
-                      config: PaymentConfig(
-                        amount: 1000,
-                        productIdentity: "productIdentity",
-                        productName: "productName",
+              // Text("Start from : $DateTime.now()"),
+              // const Text("Months : 2"),
+              Obx(
+                () => Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Select Date',
+                        ),
+                        controller: TextEditingController(
+                            text: DateFormat('yyyy-MM-dd')
+                                .format(controller.selectedDate.value)),
+                        readOnly: true,
+                        onTap: () async {
+                          final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate: controller.selectedDate.value,
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
+                          );
+                          if (picked != null &&
+                              picked != controller.selectedDate.value) {
+                            controller.selectedDate.value = picked;
+                          }
+                        },
                       ),
-                      preferences: [
-                        PaymentPreference.khalti,
-                      ],
-                      onSuccess: (success) {
-                        debugPrint(":::SUCCESS::: => ");
-                        // c.addBooking(docId, bookDate);
-                        // con.historyDetail.clear();
-                        // con.getAllHistory();
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        controller.selectedDate.value = DateTime.now();
                       },
-                      onFailure: (fa) {
-                        debugPrint(":::FAILURE::: => ");
-                        // CustomSnackBar.error(
-                        //     title: "Payment", message: "Payment Failure");
-                      },
-                      onCancel: () {
-                        debugPrint(":::CANCELLATION::: => ");
-                        // CustomSnackBar.info(
-                        //     title: "Payment", message: "Payment Cancel");
-                      },
-                    );
-                  })
+                      child: const Text('Today'),
+                    ),
+                  ],
+                ),
+              ),
+              Obx(
+                () => TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: 'Months',
+                  ),
+                  keyboardType: TextInputType.number,
+                  initialValue: controller.months.value.toString(),
+                  onChanged: (value) {
+                    controller.months.value = int.tryParse(value) ?? 1;
+                  },
+                ),
+              ),
+              Obx(() => Text(
+                    'Total Price: Rs. ${controller.calculateTotalPrice(gym.gymPrice ?? 0, controller.months.value)}',
+                    style: const TextStyle(fontSize: 20),
+                  )),
+              const Spacer(),
+              CustomElevatedButton(
+                onTap: () {
+                  int totalCost = controller.calculateTotalPrice(
+                      gym.gymPrice ?? 0, controller.months.value);
+                  Get.to(() => PaymentPage(gym: gym, totalCost: totalCost));
+                },
+                title: 'Proceed to Payment',
+              ),
+
+              // CustomElevatedButton(
+              //   title: "Esewa",
+              //   onTap: () {
+              //     int totalCost = controller.calculateTotalPrice(
+              //         gym.gymPrice ?? 0, controller.months.value);
+              //     Payments eSewa = Payments();
+              //     eSewa.EsewaPayments(
+              //       gym.gymId.toString(),
+              //       gym.gymName.toString(),
+              //       totalCost.toString(), // Pass the total cost
+              //       onSuccess: () {
+              //         Get.offAll(() => HomePage());
+              //         CustomSnackBar.success(
+              //           title: "Booking",
+              //           message: "Booking is done successfully",
+              //         );
+              //       },
+              //     );
+              //   },
+              // ),
+              // CustomElevatedButton(
+              //   title: "Khalti",
+              //   onTap: () {
+              //     int totalCost = controller.calculateTotalPrice(
+              //         gym.gymPrice ?? 0, controller.months.value);
+              //     Payments khalti = Payments();
+              //     khalti.KhaltiPayments(
+              //       context,
+              //       gym.gymId.toString(),
+              //       gym.gymName.toString(),
+              //       totalCost, // Pass the total cost
+              //       onSuccess: () {
+              //         c.registerPayment(gym.gymId.toString(), DateTime.now(),
+              //             controller.months.value, totalCost);
+              //       },
+              //     );
+              //   },
+              // )
+
+              // CustomElevatedButton(
+              //     title: "Esewa",
+              //     onTap: () {
+              //       Payments eSewa = Payments();
+              //       eSewa.EsewaPayments(
+              //           gym.gymId.toString(),
+              //           gym.gymName.toString(),
+              //           gym.gymPrice.toString(), onSuccess: () {
+              //         Get.offAll(() => HomePage());
+              //         CustomSnackBar.success(
+              //             title: "Booking",
+              //             message: "Booking is done successfully");
+              //       });
+              //     }),
+
               // Add any additional details about the gym here
             ],
           ),
