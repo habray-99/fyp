@@ -1,19 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
 
-import '../../controller/core_controller.dart';
+// import '../../controller/core_controller.dart';
 
 // class CaloriesCalculatorPage extends StatefulWidget {
+//   const CaloriesCalculatorPage({super.key});
+
 //   @override
 //   _CaloriesCalculatorPageState createState() => _CaloriesCalculatorPageState();
 // }
 
 // class _CaloriesCalculatorPageState extends State<CaloriesCalculatorPage> {
-//   int _weight = 0;
-//   int _height = 0;
-//   int _age = 0;
+//   double _weight = 0.0; // Changed to double
+//   double _height = 0.0; // Changed to double
+//   double _age = 0.0; // Changed to double
+
 //   String _gender = 'male';
 //   String caloriesApproximation = '';
+
 //   @override
 //   void initState() {
 //     super.initState();
@@ -25,10 +29,9 @@ import '../../controller/core_controller.dart';
 //     if (coreController.currentUser.value != null) {
 //       setState(() {
 //         _weight =
-//             int.parse(coreController.currentUser.value!.memberWeight ?? '0');
+//             double.parse(coreController.currentUser.value!.memberWeight ?? '0');
 //         _height =
-//             int.parse(coreController.currentUser.value!.memberHeight ?? '0');
-//         // ??0;
+//             double.parse(coreController.currentUser.value!.memberHeight ?? '0');
 //       });
 //     }
 //   }
@@ -55,18 +58,51 @@ import '../../controller/core_controller.dart';
 //               decoration: const InputDecoration(labelText: 'Weight (kg)'),
 //               keyboardType: TextInputType.number,
 //               initialValue: _weight.toString(),
-//               onChanged: (value) => _weight = double.parse(value),
+//               onChanged: (value) {
+//                 if (value.isNotEmpty) {
+//                   try {
+//                     _weight = double.parse(value);
+//                   } catch (e) {
+//                     // Handle the error, e.g., show an error message or set _weight to a default value
+//                     _weight = 0.0; // Default value
+//                   }
+//                 } else {
+//                   _weight = 0.0; // Default value for empty string
+//                 }
+//               },
 //             ),
 //             TextFormField(
 //               decoration: const InputDecoration(labelText: 'Height (cm)'),
 //               keyboardType: TextInputType.number,
 //               initialValue: _height.toString(),
-//               onChanged: (value) => _height = double.parse(value),
+//               onChanged: (value) {
+//                 if (value.isNotEmpty) {
+//                   try {
+//                     _height = double.parse(value);
+//                   } catch (e) {
+//                     // Handle the error, e.g., show an error message or set _height to a default value
+//                     _height = 0.0; // Default value
+//                   }
+//                 } else {
+//                   _height = 0.0; // Default value for empty string
+//                 }
+//               },
 //             ),
 //             TextFormField(
 //               decoration: const InputDecoration(labelText: 'Age'),
 //               keyboardType: TextInputType.number,
-//               onChanged: (value) => _age = int.parse(value),
+//               onChanged: (value) {
+//                 if (value.isNotEmpty) {
+//                   try {
+//                     _age = double.parse(value);
+//                   } catch (e) {
+//                     // Handle the error, e.g., show an error message or set _age to a default value
+//                     _age = 0.0; // Default value
+//                   }
+//                 } else {
+//                   _age = 0.0; // Default value for empty string
+//                 }
+//               },
 //             ),
 //             DropdownButtonFormField<String>(
 //               decoration: const InputDecoration(labelText: 'Gender'),
@@ -88,8 +124,7 @@ import '../../controller/core_controller.dart';
 //             ElevatedButton(
 //               onPressed: () {
 //                 final calories = _calculateCalories();
-//                 final roundedCalories = calories
-//                     .round(); // Round the calories to the nearest whole number
+//                 final roundedCalories = calories.round();
 //                 setState(() {
 //                   caloriesApproximation =
 //                       'Your daily caloric needs are approximately $roundedCalories calories.';
@@ -97,35 +132,33 @@ import '../../controller/core_controller.dart';
 //               },
 //               child: const Text('Calculate'),
 //             ),
-//             const SizedBox(
-//                 height: 16), // Add some space between the button and the text
+//             const SizedBox(height: 16),
 //             Container(
-//               padding: const EdgeInsets.all(
-//                   8.0), // Add some padding inside the container
+//               padding: const EdgeInsets.all(8.0),
 //               decoration: BoxDecoration(
-//                 color: const Color.fromRGBO(
-//                     245, 245, 245, 0.8), // Smokey white color
-//                 borderRadius:
-//                     BorderRadius.circular(8.0), // Optional: Add rounded corners
+//                 color: const Color.fromRGBO(245, 245, 245, 0.8),
+//                 borderRadius: BorderRadius.circular(8.0),
 //               ),
 //               child: Text(
 //                 caloriesApproximation,
-//                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-//                     color: Colors
-//                         .black), // Ensure the text is readable against the background
+//                 style: Theme.of(context)
+//                     .textTheme
+//                     .titleLarge
+//                     ?.copyWith(color: Colors.black),
 //               ),
 //             )
-
-//             // Text(
-//             //   caloriesApproximation,
-//             //   style: Theme.of(context).textTheme.headlineSmall,
-//             // ), // Display the calories approximation
 //           ],
 //         ),
 //       ),
 //     );
 //   }
 // }
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controller/core_controller.dart';
+
 class CaloriesCalculatorPage extends StatefulWidget {
   const CaloriesCalculatorPage({super.key});
 
@@ -134,9 +167,9 @@ class CaloriesCalculatorPage extends StatefulWidget {
 }
 
 class _CaloriesCalculatorPageState extends State<CaloriesCalculatorPage> {
-  double _weight = 0.0; // Changed to double
-  double _height = 0.0; // Changed to double
-  double _age = 0.0; // Changed to double
+  double _weight = 0.0;
+  double _height = 0.0;
+  double _age = 0.0;
 
   String _gender = 'male';
   String caloriesApproximation = '';
@@ -177,73 +210,98 @@ class _CaloriesCalculatorPageState extends State<CaloriesCalculatorPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Weight (kg)'),
-              keyboardType: TextInputType.number,
-              initialValue: _weight.toString(),
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  try {
-                    _weight = double.parse(value);
-                  } catch (e) {
-                    // Handle the error, e.g., show an error message or set _weight to a default value
-                    _weight = 0.0; // Default value
-                  }
-                } else {
-                  _weight = 0.0; // Default value for empty string
-                }
-              },
+            Card(
+              elevation: 4.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Weight (kg)',
+                        prefixIcon: Icon(Icons.monitor_weight),
+                      ),
+                      keyboardType: TextInputType.number,
+                      initialValue: _weight.toString(),
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          try {
+                            _weight = double.parse(value);
+                          } catch (e) {
+                            _weight = 0.0;
+                          }
+                        } else {
+                          _weight = 0.0;
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Height (cm)',
+                        prefixIcon: Icon(Icons.height),
+                      ),
+                      keyboardType: TextInputType.number,
+                      initialValue: _height.toString(),
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          try {
+                            _height = double.parse(value);
+                          } catch (e) {
+                            _height = 0.0;
+                          }
+                        } else {
+                          _height = 0.0;
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Age',
+                        prefixIcon: Icon(Icons.cake),
+                      ),
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          try {
+                            _age = double.parse(value);
+                          } catch (e) {
+                            _age = 0.0;
+                          }
+                        } else {
+                          _age = 0.0;
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        labelText: 'Gender',
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      value: _gender,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _gender = newValue!;
+                        });
+                      },
+                      items: <String>['male', 'female']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Height (cm)'),
-              keyboardType: TextInputType.number,
-              initialValue: _height.toString(),
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  try {
-                    _height = double.parse(value);
-                  } catch (e) {
-                    // Handle the error, e.g., show an error message or set _height to a default value
-                    _height = 0.0; // Default value
-                  }
-                } else {
-                  _height = 0.0; // Default value for empty string
-                }
-              },
-            ),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Age'),
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  try {
-                    _age = double.parse(value);
-                  } catch (e) {
-                    // Handle the error, e.g., show an error message or set _age to a default value
-                    _age = 0.0; // Default value
-                  }
-                } else {
-                  _age = 0.0; // Default value for empty string
-                }
-              },
-            ),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Gender'),
-              value: _gender,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _gender = newValue!;
-                });
-              },
-              items: <String>['male', 'female']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: () {
                 final calories = _calculateCalories();
@@ -255,11 +313,11 @@ class _CaloriesCalculatorPageState extends State<CaloriesCalculatorPage> {
               },
               child: const Text('Calculate'),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24.0),
             Container(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: const Color.fromRGBO(245, 245, 245, 0.8),
+                color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Text(
@@ -268,6 +326,7 @@ class _CaloriesCalculatorPageState extends State<CaloriesCalculatorPage> {
                     .textTheme
                     .titleLarge
                     ?.copyWith(color: Colors.black),
+                textAlign: TextAlign.center,
               ),
             )
           ],
