@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp/repo/register_repo.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../utils/custom_snackbar.dart';
 import '../../utils/storage_keys.dart';
@@ -26,6 +27,7 @@ class SignUpController extends GetxController {
   final memberTokenController = TextEditingController();
   final memberTypeController = TextEditingController();
   final tokenExpiryController = TextEditingController();
+  final Rx<String?> memberImageUrl = Rx<String?>(null);
 
   var userType = '1'.obs;
 
@@ -43,6 +45,16 @@ class SignUpController extends GetxController {
     print("Password obscure: ${passwordObscure2.value}");
   }
 
+  final picker = ImagePicker();
+
+  Future<void> pickImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      // You can upload the image to a server or store the file path locally
+      memberImageUrl.value = pickedFile.path;
+    }
+  }
+
   void onSubmit() async {
     if (key.currentState!.validate()) {
       // loading.show(
@@ -57,6 +69,7 @@ class SignUpController extends GetxController {
           memberPassword: memberPasswordController.text,
           memberHeight: memberHeightController.text.toString(),
           memberWeight: memberWeightController.text.toString(),
+          // memberImageUrl: memberImageUrl.value,
           memberType: userType.value,
           onSuccess: (user, token) async {
             // loading.hide();
