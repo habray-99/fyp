@@ -18,6 +18,7 @@ class RegisterRepo {
     String? memberType,
     required Function(Users users, String token) onSuccess,
     required Function(String message) onError,
+    String? memberImageUrl,
   }) async {
     try {
       var header = {
@@ -35,7 +36,7 @@ class RegisterRepo {
       };
       http.Response response = await http.post(
         Uri.parse(Apis.registerUrl),
-        // headers: header,
+        headers: header,
         body: body,
       );
       log(body.toString());
