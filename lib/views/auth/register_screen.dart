@@ -41,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
                         _rePasswordBuilder(),
                         _phoneBuilder(),
                         _addressBuilder(),
-                        // _imagePickerBuilder(),
+                        _imagePickerBuilder(),
                         _heightBuilder(),
                         _weightBuilder(),
                         _checker(),
