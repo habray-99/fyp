@@ -15,9 +15,12 @@ class Apis {
   static const getGymsUrl = "$baseUrl/Gym/FetchAllGym.php";
   static const addBooking = "$baseUrl/payment/registerPayment.php";
   static const GETQOUTES = "$baseUrl/Motivation/MotivationPaginated.php";
+  static const GETPREVIOUSMEMBERSHIPS =
+      "$baseUrl/payment/FetchAllPaymentOfMember.php";
 
   // static const getRecommendations = "http://10.0.2.2/myapp/random-exercises/";
-  static const getRecommendations = "http://$ip:8000/myapp/random-exercises/";
+  static const getRecommendations =
+      "http://127.0.0.1:8000/myapp/random-exercises";
 
   static String get E_CLIENT_ID =>
       "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R";
