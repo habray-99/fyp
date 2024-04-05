@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp/controller/core_controller.dart';
 import 'package:fyp/model/user_detail.dart';
 import 'package:fyp/utils/apis.dart';
+import 'package:fyp/views/dashboard/Memberships_page.dart';
 import 'package:fyp/views/dashboard/all_gyms_list.dart';
 import 'package:fyp/views/dashboard/calories_calculator_page.dart';
 import 'package:fyp/views/dashboard/edit_user_detail.dart';
@@ -40,35 +41,6 @@ class HomePage extends StatelessWidget {
             // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
             children: [
-              // DrawerHeader(
-              //   decoration: const BoxDecoration(
-              //     color: Colors.blue,
-              //   ),
-              //   child: _profileImage(c.currentUser.value!),
-              // ),
-              // DrawerHeader(
-              //   decoration: const BoxDecoration(
-              //     color: Colors.blue,
-              //   ),
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       _profileImage(c.currentUser
-              //           .value!), // Your existing profile image widget
-              //       const SizedBox(
-              //           height:
-              //               10), // Add some space between the image and the button
-              //       IconButton(
-              //         icon: const Icon(Icons.edit,
-              //             color: Colors.white), // Edit icon
-              //         onPressed: () {
-              //           // Handle the edit button press here
-              //           print('Edit button pressed');
-              //         },
-              //       ),
-              //     ],
-              //   ),
-              // ),
               DrawerHeader(
                 decoration: const BoxDecoration(
                   color: Colors.blue,
@@ -108,7 +80,6 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-
               ListTile(
                 title: const Text("Browse Gyms"),
                 onTap: () {
@@ -138,6 +109,12 @@ class HomePage extends StatelessWidget {
                   // Update the state of the app.
                   // ...
                   Get.to(() => ExerciseSelectionPage());
+                },
+              ),
+              ListTile(
+                title: const Text("Memberships"),
+                onTap: () {
+                  Get.to(() => const PaymentsListView());
                 },
               ),
               ListTile(
