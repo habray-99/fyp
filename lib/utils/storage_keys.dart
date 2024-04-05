@@ -44,7 +44,7 @@ class StorageHelper {
     log("Fetching member id");
     try {
       final box = GetStorage();
-      log("${box.read(StorageKeys.USER)}");
+      // log("${box.read(StorageKeys.USER)}");
       Users user = Users.fromJson(json.decode(box.read(StorageKeys.USER)));
       return user.memberId;
     } catch (e, s) {
