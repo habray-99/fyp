@@ -1,5 +1,4 @@
-import 'dart:async';
-
+// import 'dart:async';
 // import 'package:flutter/material.dart';
 
 // class NfcGeneratorAnimation extends StatefulWidget {
@@ -9,124 +8,81 @@ import 'dart:async';
 //   _NfcGeneratorAnimationState createState() => _NfcGeneratorAnimationState();
 // }
 
-// class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation>
-//     with SingleTickerProviderStateMixin {
-//   late AnimationController _controller;
-//   late Animation<double> _animation;
-//   bool _isAnimating = false;
-//   int _timeRemaining = 60;
+// class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation> {
+//   bool _isCountingDown = false;
+//   int _secondsLeft = 60;
+//   Timer? _timer;
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _controller = AnimationController(
-//       vsync: this,
-//       duration: const Duration(seconds: 60),
-//     );
-//     _animation = Tween<double>(begin: 0.1, end: 1.5).animate(_controller)
-//       ..addListener(() {
-//         setState(() {});
-//       })
-//       ..addStatusListener((status) {
-//         if (status == AnimationStatus.completed) {
-//           _isAnimating = false;
+//   void _startCountdown() {
+//     setState(() {
+//       _isCountingDown = true;
+//     });
+//     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+//       setState(() {
+//         if (_secondsLeft > 0) {
+//           _secondsLeft--;
+//         } else {
+//           timer.cancel();
+//           setState(() {
+//             _isCountingDown = false;
+//             _secondsLeft = 60; // Reset the countdown to 60 seconds
+//           });
 //         }
 //       });
+//     });
 //   }
 
 //   @override
 //   void dispose() {
-//     _controller.dispose();
+//     _timer?.cancel();
 //     super.dispose();
-//   }
-
-//   void _startAnimation() {
-//     _isAnimating = true;
-//     _timeRemaining = 60;
-//     _controller.forward(from: 0.0);
-//     Timer.periodic(const Duration(seconds: 1), (timer) {
-//       if (_timeRemaining > 0) {
-//         setState(() {
-//           _timeRemaining--;
-//         });
-//       } else {
-//         timer.cancel();
-//         _stopAnimation();
-//       }
-//     });
-//   }
-
-//   void _stopAnimation() {
-//     _isAnimating = false;
-//     _controller.reset();
 //   }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: _isAnimating ? null : _startAnimation,
-//       child: Stack(
-//         children: [
-//           Center(
-//             child: Container(
-//               width: MediaQuery.of(context).size.width / 2.5,
-//               height: MediaQuery.of(context).size.width / 2.5,
-//               decoration: const BoxDecoration(
-//                 shape: BoxShape.circle,
-//                 color: Colors.blue,
-//               ),
-//               child: const Center(
-//                 child: Text(
-//                   'Generate NFC',
-//                   style: TextStyle(
-//                     color: Colors.white,
-//                     fontSize: 18.0,
-//                   ),
-//                 ),
-//               ),
-//             ),
+//     return Center(
+//       child: GestureDetector(
+//         onTap: _isCountingDown ? _resetCountdown : _startCountdown,
+//         child: Container(
+//           width: MediaQuery.of(context).size.width / 2.5,
+//           height: MediaQuery.of(context).size.width / 2.5,
+//           decoration: const BoxDecoration(
+//             shape: BoxShape.circle,
+//             color: Colors.blue,
 //           ),
-//           AnimatedBuilder(
-//             animation: _animation,
-//             builder: (context, child) {
-//               return Container(
-//                 width: MediaQuery.of(context).size.width * _animation.value,
-//                 height: MediaQuery.of(context).size.width * _animation.value,
-//                 decoration: BoxDecoration(
-//                   shape: BoxShape.circle,
-//                   color: Colors.blue.withOpacity(0.2),
-//                 ),
-//               );
-//             },
-//           ),
-//           if (_isAnimating)
-//             Positioned(
-//               top: 16.0,
-//               right: 16.0,
-//               child: GestureDetector(
-//                 onTap: _stopAnimation,
-//                 child: Container(
-//                   padding: const EdgeInsets.all(8.0),
-//                   decoration: BoxDecoration(
-//                     color: Colors.red,
-//                     borderRadius: BorderRadius.circular(16.0),
-//                   ),
-//                   child: Text(
-//                     '$_timeRemaining',
+//           child: Center(
+//             child: _isCountingDown
+//                 ? Text(
+//                     "$_secondsLeft",
 //                     style: const TextStyle(
 //                       color: Colors.white,
-//                       fontSize: 18.0,
+//                       fontSize: 20,
+//                     ),
+//                   )
+//                 : const Text(
+//                     "Generate NFC",
+//                     style: TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 20,
 //                     ),
 //                   ),
-//                 ),
-//               ),
-//             ),
-//         ],
+//           ),
+//         ),
 //       ),
 //     );
 //   }
+
+//   void _resetCountdown() {
+//     setState(() {
+//       _isCountingDown = false;
+//       _secondsLeft = 60; // Reset the countdown to 60 seconds
+//     });
+//     _timer?.cancel(); // Cancel the current timer
+//   }
 // }
-//
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class NfcGeneratorAnimation extends StatefulWidget {
@@ -136,10 +92,41 @@ class NfcGeneratorAnimation extends StatefulWidget {
   _NfcGeneratorAnimationState createState() => _NfcGeneratorAnimationState();
 }
 
-class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation> {
+class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation>
+    with SingleTickerProviderStateMixin {
   bool _isCountingDown = false;
   int _secondsLeft = 60;
   Timer? _timer;
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    )..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _animationController.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          _animationController.forward();
+        }
+      });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _timer?.cancel();
+    super.dispose();
+  }
 
   void _startCountdown() {
     setState(() {
@@ -154,16 +141,12 @@ class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation> {
           setState(() {
             _isCountingDown = false;
             _secondsLeft = 60; // Reset the countdown to 60 seconds
+            _animationController.forward();
           });
         }
       });
     });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
+    _animationController.forward();
   }
 
   @override
@@ -171,30 +154,38 @@ class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation> {
     return Center(
       child: GestureDetector(
         onTap: _isCountingDown ? _resetCountdown : _startCountdown,
-        child: Container(
-          width: MediaQuery.of(context).size.width / 2.5,
-          height: MediaQuery.of(context).size.width / 2.5,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.blue,
-          ),
-          child: Center(
-            child: _isCountingDown
-                ? Text(
-                    "$_secondsLeft",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  )
-                : const Text(
-                    "Generate NFC",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-          ),
+        child: AnimatedBuilder(
+          animation: _scaleAnimation,
+          builder: (context, child) {
+            return Transform.scale(
+              scale: _scaleAnimation.value,
+              child: Container(
+                width: MediaQuery.of(context).size.width / 2.5,
+                height: MediaQuery.of(context).size.width / 2.5,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blue,
+                ),
+                child: Center(
+                  child: _isCountingDown
+                      ? Text(
+                          "$_secondsLeft",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        )
+                      : const Text(
+                          "Generate NFC",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -205,6 +196,9 @@ class _NfcGeneratorAnimationState extends State<NfcGeneratorAnimation> {
       _isCountingDown = false;
       _secondsLeft = 60; // Reset the countdown to 60 seconds
     });
+    _animationController.reset();
+
     _timer?.cancel(); // Cancel the current timer
+    _animationController.reset();
   }
 }
