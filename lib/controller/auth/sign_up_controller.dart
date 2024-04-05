@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fyp/model/user_detail.dart';
 import 'package:fyp/repo/register_repo.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -46,12 +49,12 @@ class SignUpController extends GetxController {
   }
 
   final picker = ImagePicker();
+  final Rx<File?> memberImageFile = Rx<File?>(null);
 
   Future<void> pickImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      // You can upload the image to a server or store the file path locally
-      memberImageUrl.value = pickedFile.path;
+      memberImageFile.value = File(pickedFile.path);
     }
   }
 
@@ -69,7 +72,7 @@ class SignUpController extends GetxController {
           memberPassword: memberPasswordController.text,
           memberHeight: memberHeightController.text.toString(),
           memberWeight: memberWeightController.text.toString(),
-          // memberImageUrl: memberImageUrl.value,
+          memberImageUrl: memberImageFile.value,
           memberType: userType.value,
           onSuccess: (user, token) async {
             // loading.hide();
@@ -78,13 +81,47 @@ class SignUpController extends GetxController {
             await box.write(StorageKeys.ACCESS_TOKEN, token.toString());
             Get.find<CoreController>().loadCurrentUser();
             Get.offAll(HomePage());
-            CustomSnackBar.success(title: "Registered Successfully", message: "Registered Successfully");
+            CustomSnackBar.success(
+                title: "Registered Successfully",
+                message: "Registered Successfully");
           },
           onError: (message) {
             // loading.hide();
-            CustomSnackBar.error(
-                title: "Error", message: message);
+            CustomSnackBar.error(title: "Error", message: message);
           });
     }
+  }
+
+  // RxInt memberId = RxInt(StorageHelper().getUserId());
+  int memberId = StorageHelper().getUserId();
+
+  void updateUserDetails(Users user) async {
+    // log(memberImageFile.value!.path);
+    await RegisterRepo.updateDetail(
+      memberId: memberId.toString(),
+      memberName: memberNameController.text,
+      memberEmail: memberEmailController.text,
+      memberPhone: memberPhoneController.text,
+      memberAddress: memberAddressController.text,
+      memberHeight: memberHeightController.text.toString(),
+      memberWeight: memberWeightController.text.toString(),
+      memberType: user.memberType.toString(),
+      // Use memberImageFile.value?.path to get the path of the selected image
+      memberImageUrl: memberImageFile.value?.path,
+      onSuccess: (updatedUser, token) async {
+        final box = GetStorage();
+        await box.write(StorageKeys.USER, json.encode(updatedUser.toJson()));
+        await box.write(StorageKeys.ACCESS_TOKEN, token.toString());
+        Get.find<CoreController>().loadCurrentUser();
+        CustomSnackBar.success(
+            title: "Updated Successfully",
+            message: "User details updated successfully");
+        Get.back();
+      },
+      onError: (message) {
+        CustomSnackBar.error(title: "Error", message: message);
+      },
+    );
+    // }
   }
 }
