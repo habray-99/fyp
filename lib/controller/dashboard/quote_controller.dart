@@ -1,4 +1,5 @@
 import 'package:fyp/repo/qoutes_repo.dart';
+import 'package:fyp/utils/custom_snackbar.dart';
 import 'package:get/get.dart';
 import '../../model/quotes.dart';
 
@@ -41,6 +42,8 @@ class QuoteController extends GetxController {
         },
         onError: (error) {
           // Handle error
+          CustomSnackBar.error(
+              title: "Quotes", message: "Failed to Fetch Quotes");
         },
       );
     } catch (e) {
