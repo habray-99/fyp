@@ -94,10 +94,88 @@
 //   }
 // }
 
+// import 'package:flutter/material.dart';
+// import 'package:fyp/repo/get_gyms.dart';
+// import 'package:fyp/views/dashboard/gym_detail_page.dart';
+// import 'package:get/get.dart';
+
+// import '../../model/gym_detail.dart';
+
+// class GymListPage extends StatefulWidget {
+//   const GymListPage({super.key});
+
+//   @override
+//   _GymListPageState createState() => _GymListPageState();
+// }
+
+// class _GymListPageState extends State<GymListPage> {
+//   final GetGymsRepo getGymsRepo = GetGymsRepo();
+//   List<Gyms> gyms = [];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     fetchGyms();
+//   }
+
+//   void fetchGyms() async {
+//     try {
+//       await getGymsRepo.getGyms(
+//         onSuccess: (gymsList) {
+//           setState(() {
+//             gyms = gymsList;
+//           });
+//         },
+//         onError: (error) {
+//           print('Error fetching gyms: $error');
+//         },
+//       );
+//     } catch (e) {
+//       print('Exception: $e');
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Gyms'),
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: ListView.separated(
+//           itemCount: gyms.length,
+//           separatorBuilder: (context, index) => const SizedBox(height: 8.0),
+//           itemBuilder: (context, index) {
+//             final gym = gyms[index];
+//             return Card(
+//               elevation: 4.0,
+//               shape: RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.circular(8.0),
+//               ),
+//               child: ListTile(
+//                 title: Hero(
+//                   tag: 'gym-${gym.gymId}',
+//                   child: Text(
+//                     gym.gymName ?? 'Unknown Gym',
+//                     style: Theme.of(context).textTheme.headlineMedium,
+//                   ),
+//                 ),
+//                 subtitle: Text(gym.gymAddress ?? 'Address not available'),
+//                 onTap: () => Get.to(() => GymDetailPage(gym: gym)),
+//               ),
+//             );
+//           },
+//         ),
+//       ),
+//     );
+//   }
+// }
 import 'package:flutter/material.dart';
 import 'package:fyp/repo/get_gyms.dart';
 import 'package:fyp/views/dashboard/gym_detail_page.dart';
 import 'package:get/get.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../model/gym_detail.dart';
 
@@ -143,26 +221,62 @@ class _GymListPageState extends State<GymListPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView.separated(
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.8,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+          ),
           itemCount: gyms.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 8.0),
           itemBuilder: (context, index) {
             final gym = gyms[index];
-            return Card(
-              elevation: 4.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: ListTile(
-                title: Hero(
-                  tag: 'gym-${gym.gymId}',
-                  child: Text(
-                    gym.gymName ?? 'Unknown Gym',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
+            return InkWell(
+              onTap: () => Get.to(() => GymDetailPage(gym: gym)),
+              child: Card(
+                elevation: 4.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                subtitle: Text(gym.gymAddress ?? 'Address not available'),
-                onTap: () => Get.to(() => GymDetailPage(gym: gym)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Hero(
+                        tag: 'gym-${gym.gymId}-image',
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Hero(
+                            tag: 'gym-${gym.gymId}-name',
+                            child: Text(
+                              gym.gymName ?? 'Unknown Gym',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Text(
+                            gym.gymAddress ?? 'Address not available',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },
