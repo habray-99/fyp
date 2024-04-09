@@ -93,7 +93,7 @@ class SignUpController extends GetxController {
   }
 
   // RxInt memberId = RxInt(StorageHelper().getUserId());
-  int memberId = StorageHelper().getUserId();
+  int memberId = StorageHelper().getUserId() ?? 0;
 
   void updateUserDetails(Users user) async {
     // log(memberImageFile.value!.path);
