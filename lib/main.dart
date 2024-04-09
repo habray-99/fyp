@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fyp/utils/colors.dart';
+
 import 'package:fyp/views/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -37,7 +37,10 @@ class MyApp extends StatelessWidget {
           title: 'My project',
           theme: ThemeData(
             colorScheme:
-                ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+                // ColorScheme(brightness: Color, primary: primary, onPrimary: onPrimary, secondary: secondary, onSecondary: onSecondary, error: error, onError: onError, background: background, onBackground: onBackground, surface: surface, onSurface: onSurface),
+                ColorScheme.fromSeed(
+              seedColor: const Color.fromRGBO(248, 248, 255, .7),
+            ),
             useMaterial3: true,
           ),
           initialBinding: BindingsBuilder(() {
