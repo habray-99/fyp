@@ -46,6 +46,7 @@ class StorageHelper {
       final box = GetStorage();
       // log("${box.read(StorageKeys.USER)}");
       Users user = Users.fromJson(json.decode(box.read(StorageKeys.USER)));
+      log('message: ${user.memberId.toString()}');
       return user.memberId;
     } catch (e, s) {
       log(e.toString());
