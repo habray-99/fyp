@@ -57,38 +57,6 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-  // Widget _gymImgAndGreet() {
-  //   return Column(
-  //     children: [
-  //       Container(
-  //         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),boxShadow: const [
-  //           BoxShadow(spreadRadius: 3)
-  //         ]),
-  //         child: CachedNetworkImage(
-  //           imageUrl:
-  //               "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  //           // height: 300,
-  //         ),
-  //       ),
-  //       // const SizedBox(
-  //       //   height: 20,
-  //       // ),
-  //       const SizedBox(
-  //         // height: 200,
-  //         child: ListTile(
-  //           title: Text(
-  //             "Welcome",
-  //             style: TextStyle(color: Colors.black87),
-  //           ),
-  //           subtitle: Text(
-  //             "Login in to continue",
-  //             style: TextStyle(color: Colors.black87),
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
   Widget _gymImgAndGreet() {
     return Column(
       children: [
@@ -123,11 +91,11 @@ class _LogInScreenState extends State<LogInScreen> {
         const ListTile(
           title: Text(
             "Welcome",
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Color.fromRGBO(52, 52, 52, 1)),
           ),
           subtitle: Text(
             "Login in to continue",
-            style: TextStyle(color: Colors.black87),
+            style: TextStyle(color: Color.fromRGBO(52, 52, 52, 1)),
           ),
         ),
       ],
@@ -135,31 +103,6 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   Widget _otherMethods() {
-    // return Padding(
-    //   padding: const EdgeInsets.all(8.0),
-    //   child: Row(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: [
-    //       const Text("Or login with"),
-    //       const SizedBox(
-    //         width: 10,
-    //       ),
-    //       CachedNetworkImage(
-    //         imageUrl: "https://img.icons8.com/color/452/google-logo.png",
-    //         height: 30,
-    //         width: 30,
-    //       ),
-    //       const SizedBox(
-    //         width: 10,
-    //       ),
-    //       CachedNetworkImage(
-    //         imageUrl: "https://img.icons8.com/color/452/facebook-new.png",
-    //         height: 30,
-    //         width: 30,
-    //       ),
-    //     ],
-    //   ),
-    // );
     return Center(
       child: Column(
         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -193,7 +136,10 @@ class _LogInScreenState extends State<LogInScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Don't have an account?"),
+          const Text(
+            "Don't have an account?",
+            style: TextStyle(color: Color.fromRGBO(52, 52, 52, 1)),
+          ),
           TextButton(
             onPressed: () {
               Get.to(() => RegisterScreen());
@@ -256,7 +202,9 @@ class _LogInScreenState extends State<LogInScreen> {
         decoration: InputDecoration(
           labelText: "Email",
           hintText: "Enter your email",
-          hintStyle: const TextStyle(color: Colors.black38),
+          hintStyle: const TextStyle(
+            color: Color.fromRGBO(52, 52, 52, .6),
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -277,14 +225,25 @@ class _LogInScreenState extends State<LogInScreen> {
           decoration: InputDecoration(
             labelText: "Password",
             hintText: "Enter your password",
-            hintStyle: const TextStyle(color: Colors.black38),
+            hintStyle: const TextStyle(
+              // color: Color.fromRGBO(52, 52, 52, .6),
+              color: Color.fromRGBO(52, 52, 52, .6),
+            ),
             suffixIcon: IconButton(
               onPressed: () {
                 c.onEyeCLick();
               },
               icon: c.passwordObscure.value
-                  ? const Icon(Icons.visibility_off)
-                  : const Icon(Icons.visibility),
+                  ? const Icon(
+                      Icons.visibility_off,
+                      // color: Color.fromRGBO(166, 227, 233, 1),
+                      color: Colors.black54,
+                    )
+                  : const Icon(
+                      Icons.visibility,
+                      // color: Color.fromRGBO(166, 227, 233, 1),
+                      color: Colors.black87,
+                    ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
