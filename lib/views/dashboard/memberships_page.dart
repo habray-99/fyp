@@ -16,13 +16,18 @@ class PaymentsListView extends StatelessWidget {
     int? memberId = a.getUserId();
     paymentsController.fetchGyms(memberId);
 
-    return Obx(
-      () => ListView.builder(
-        itemCount: paymentsController.paymentsList.length,
-        itemBuilder: (context, index) {
-          final payment = paymentsController.paymentsList[index];
-          return PaymentCard(payment: payment);
-        },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Previous Memberships'),
+      ),
+      body: Obx(
+        () => ListView.builder(
+          itemCount: paymentsController.paymentsList.length,
+          itemBuilder: (context, index) {
+            final payment = paymentsController.paymentsList[index];
+            return PaymentCard(payment: payment);
+          },
+        ),
       ),
     );
   }
@@ -48,6 +53,13 @@ class PaymentCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // Text(
+                //   'user: ${StorageHelper().getUserId()}',
+                //   style: const TextStyle(
+                //     fontWeight: FontWeight.bold,
+                //     fontSize: 16,
+                //   ),
+                // ),
                 Text(
                   'Payment ID: ${payment.paymentId}',
                   style: const TextStyle(
@@ -60,10 +72,10 @@ class PaymentCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Paid on: ${DateFormat('MMM dd, yyyy').format(payment.paymentDate!)}',
+              'Paid on: ${DateFormat('MMM dd, yyyy').format(payment.paymentDate ?? DateTime.now())}',
               style: const TextStyle(
                 fontSize: 14,
-                color: Colors.grey,
+                color: Colors.black87,
               ),
             ),
             const SizedBox(height: 8),
@@ -71,11 +83,18 @@ class PaymentCard extends StatelessWidget {
               children: [
                 const Icon(Icons.calendar_today, color: Colors.grey),
                 const SizedBox(width: 8),
+                // Text(
+                //   'Valid until: ${DateFormat('MMM dd, yyyy').format(payment.tillwhen)}',
+                //   style: const TextStyle(
+                //     fontSize: 14,
+                //     color: Colors.grey,
+                //   ),
+                // ),
                 Text(
-                  'Valid until: ${DateFormat('MMM dd, yyyy').format(payment.tillwhen!)}',
+                  'Valid until: ${DateFormat('MMM dd, yyyy').format(payment.tillwhen ?? DateTime.now())}',
                   style: const TextStyle(
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: Colors.black87,
                   ),
                 ),
               ],
@@ -89,7 +108,7 @@ class PaymentCard extends StatelessWidget {
                   'Duration: ${payment.months} month(s)',
                   style: const TextStyle(
                     fontSize: 14,
-                    color: Colors.grey,
+                    color: Colors.black87,
                   ),
                 ),
               ],
