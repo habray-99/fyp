@@ -9,6 +9,16 @@ class Validators {
     return null;
   }
 
+  static String? checkNegative(String? value) {
+    int? parsedValue = int.tryParse(value!);
+    if (parsedValue == null) {
+      return 'Please enter a valid number';
+    } else if (parsedValue < 0) {
+      return 'Months cannot be negative';
+    }
+    return null;
+  }
+
   static String? checkPhoneField(String? fieldContent) {
     fieldContent!.trim();
     if (fieldContent.isEmpty) {
@@ -27,7 +37,6 @@ class Validators {
     } else if (fieldContent.length < 8) {
       return 'The password should be at least 8 digits';
     }
-
     return null;
   }
 
