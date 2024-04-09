@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:fyp/model/gym_detail.dart';
 import 'package:fyp/model/memberships.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,7 +17,8 @@ class GetMEmbershipsRepo {
         "Accept": "application/json",
         "Content-Type": "application/json",
       };
-      var url = Uri.parse(Apis.GETPREVIOUSMEMBERSHIPS).replace(queryParameters: {
+      var url =
+          Uri.parse(Apis.GETPREVIOUSMEMBERSHIPS).replace(queryParameters: {
         'memberId': memberId.toString(),
       });
 
