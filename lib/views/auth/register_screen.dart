@@ -41,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
                         _rePasswordBuilder(),
                         _phoneBuilder(),
                         _addressBuilder(),
-                        _imagePickerBuilder(),
+                        // _imagePickerBuilder(),
                         _heightBuilder(),
                         _weightBuilder(),
                         _checker(),
@@ -61,31 +61,31 @@ class RegisterScreen extends StatelessWidget {
   }
 
   Widget _imagePickerBuilder() {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: InkWell(
-      onTap: () {
-        c.pickImage();
-      },
-      child: Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Obx(
-          () => c.memberImageUrl.value != null
-              ? Image.file(
-                  File(c.memberImageUrl.value!),
-                  fit: BoxFit.cover,
-                )
-              : const Icon(Icons.camera_alt),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: () {
+          c.pickImage();
+        },
+        child: Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Obx(
+            () => c.memberImageUrl.value != null
+                ? Image.file(
+                    File(c.memberImageUrl.value!),
+                    fit: BoxFit.cover,
+                  )
+                : const Icon(Icons.camera_alt),
+          ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _checker() {
     return Column(
