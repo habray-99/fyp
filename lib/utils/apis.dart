@@ -1,7 +1,7 @@
 // import 'dart:io';
 class Apis {
   static const ip = "10.0.2.2";
-  // static const ip = "192.168.1.4";
+  // static const ip = "192.168.50.72";
   static const baseUrl = "http://$ip/fyp_backend";
   // static const baseUrl = "http://localhost/fyp_backend";
   // static const baseUrl = "http://172.16.16.1/fyp_backend";
@@ -19,8 +19,8 @@ class Apis {
       "$baseUrl/payment/FetchAllPaymentOfMember.php";
 
   // static const getRecommendations = "http://10.0.2.2/myapp/random-exercises/";
-  static const getRecommendations =
-      "http://127.0.0.1:8000/myapp/random-exercises";
+  static const getRecommendations = "http://$ip:8000/myapp/random-exercises/";
+  // "http://127.0.0.1:8000/myapp/random-exercises";
 
   static String get E_CLIENT_ID =>
       "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R";
