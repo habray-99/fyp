@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Payments {
   int? paymentId;
   DateTime? paymentDate;
@@ -17,20 +19,29 @@ class Payments {
     this.isValid,
   });
 
-  factory Payments.fromJson(Map<String, dynamic> json) {
-    return Payments(
-      paymentId: json['paymentId'],
-      paymentDate: json['paymentDate'] != null
-          ? DateTime.parse(json['paymentDate']).toLocal()
-          : null,
-      memberId: json['memberId'],
-      gymId: json['gymId'],
-      months: json['months'],
-      tillwhen: json['tillwhen'] != null
-          ? DateTime.parse(json['tillwhen']).toLocal()
-          : null,
-      isValid: json['isValid'],
-    );
+  Payments.fromJson(Map<String, dynamic> json) {
+    paymentId = json['payment_id'];
+    paymentDate = json['payment_date'] != null
+        ? DateTime.parse(json['payment_date'])
+        : null;
+    memberId = json['member_id'];
+    gymId = json['gym_id'];
+    months = json['months'];
+    tillwhen =
+        json['tillwhen'] != null ? DateTime.parse(json['tillwhen']) : null;
+    isValid = json['is_valid'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['payment_id'] = paymentId;
+    data['payment_date'] = paymentDate?.toIso8601String();
+    data['member_id'] = memberId;
+    data['gym_id'] = gymId;
+    data['months'] = months;
+    data['tillwhen'] = tillwhen?.toIso8601String();
+    data['is_valid'] = isValid;
+    return data;
   }
 }
 
