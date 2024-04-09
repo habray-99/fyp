@@ -18,6 +18,7 @@ class QuotesRepo {
       };
       // Append pagination parameters to the URL
       String url = '${Apis.GETQOUTES}?page=$page&limit=$limit';
+      log(url.toString());
       http.Response response = await http.get(
         Uri.parse(url),
         headers: headers,
