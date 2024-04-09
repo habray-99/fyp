@@ -126,7 +126,6 @@ import 'package:intl/intl.dart';
 import '../../controller/dashboard/home_controller.dart';
 import '../../model/gym_detail.dart';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // import '../../controller/dashboard/home_controller.dart';
