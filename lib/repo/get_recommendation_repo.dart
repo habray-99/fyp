@@ -33,7 +33,9 @@ class GetRecommendationsRepo {
         url,
         headers: header,
       );
-
+      // var response = await HttpRequest.get(url, headers: header);
+      print("Response: ");
+      // log(response.toString());
       dynamic data = jsonDecode(response.body);
       if (response.statusCode >= 200 && response.statusCode < 300) {
         List<ExerciseRecommendations> recommendations =
