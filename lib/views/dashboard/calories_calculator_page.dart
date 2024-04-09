@@ -155,6 +155,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:fyp/widgets/custom/custom_elevated_button.dart';
 import 'package:get/get.dart';
 
 import '../../controller/core_controller.dart';
@@ -206,130 +207,156 @@ class _CaloriesCalculatorPageState extends State<CaloriesCalculatorPage> {
       appBar: AppBar(
         title: const Text('Calories Calculator'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Card(
-              elevation: 4.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Weight (kg)',
-                        prefixIcon: Icon(Icons.monitor_weight),
-                      ),
-                      keyboardType: TextInputType.number,
-                      initialValue: _weight.toString(),
-                      onChanged: (value) {
-                        if (value.isNotEmpty) {
-                          try {
-                            _weight = double.parse(value);
-                          } catch (e) {
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              Card(
+                elevation: 4.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Weight (kg)',
+                          prefixIcon: const Icon(Icons.monitor_weight),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        initialValue: _weight.toString(),
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            try {
+                              _weight = double.parse(value);
+                            } catch (e) {
+                              _weight = 0.0;
+                            }
+                          } else {
                             _weight = 0.0;
                           }
-                        } else {
-                          _weight = 0.0;
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 16.0),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Height (cm)',
-                        prefixIcon: Icon(Icons.height),
+                        },
                       ),
-                      keyboardType: TextInputType.number,
-                      initialValue: _height.toString(),
-                      onChanged: (value) {
-                        if (value.isNotEmpty) {
-                          try {
-                            _height = double.parse(value);
-                          } catch (e) {
+                      const SizedBox(height: 16.0),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Height (cm)',
+                          prefixIcon: const Icon(Icons.height),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        initialValue: _height.toString(),
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            try {
+                              _height = double.parse(value);
+                            } catch (e) {
+                              _height = 0.0;
+                            }
+                          } else {
                             _height = 0.0;
                           }
-                        } else {
-                          _height = 0.0;
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 16.0),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Age',
-                        prefixIcon: Icon(Icons.cake),
+                        },
                       ),
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {
-                        if (value.isNotEmpty) {
-                          try {
-                            _age = double.parse(value);
-                          } catch (e) {
+                      const SizedBox(height: 16.0),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Age',
+                          prefixIcon: const Icon(Icons.cake),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          if (value.isNotEmpty) {
+                            try {
+                              _age = double.parse(value);
+                            } catch (e) {
+                              _age = 0.0;
+                            }
+                          } else {
                             _age = 0.0;
                           }
-                        } else {
-                          _age = 0.0;
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 16.0),
-                    DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
-                        labelText: 'Gender',
-                        prefixIcon: Icon(Icons.person),
+                        },
                       ),
-                      value: _gender,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _gender = newValue!;
-                        });
-                      },
-                      items: <String>['male', 'female']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ],
+                      const SizedBox(height: 16.0),
+                      DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'Gender',
+                          prefixIcon: const Icon(Icons.person),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        value: _gender,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _gender = newValue!;
+                          });
+                        },
+                        items: <String>['male', 'female']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () {
-                final calories = _calculateCalories();
-                final roundedCalories = calories.round();
-                setState(() {
-                  caloriesApproximation =
-                      'Your daily caloric needs are approximately $roundedCalories calories.';
-                });
-              },
-              child: const Text('Calculate'),
-            ),
-            const SizedBox(height: 24.0),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(8.0),
+              const SizedBox(height: 24.0),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     final calories = _calculateCalories();
+              //     final roundedCalories = calories.round();
+              //     setState(() {
+              //       caloriesApproximation =
+              //           'Your daily caloric needs are approximately $roundedCalories calories.';
+              //     });
+              //   },
+              //   child: const Text('Calculate'),
+              // ),
+              CustomElevatedButton(
+                onTap: () {
+                  final calories = _calculateCalories();
+                  final roundedCalories = calories.round();
+                  setState(() {
+                    caloriesApproximation =
+                        'Your daily caloric needs are approximately $roundedCalories calories.';
+                  });
+                },
+                title: 'Calculate',
               ),
-              child: Text(
-                caloriesApproximation,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.black),
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
+              const SizedBox(height: 24.0),
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  // color: Colors.grey[200],
+                  color: const Color(0xfffafafa),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Text(
+                  caloriesApproximation,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        // color: Colors.black,
+                        color: const Color.fromRGBO(52, 52, 52, 1),
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
