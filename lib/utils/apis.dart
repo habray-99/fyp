@@ -1,7 +1,7 @@
 // import 'dart:io';
 class Apis {
-  // static const ip = "10.0.2.2";
-  static const ip = "192.168.1.4";
+  static const ip = "10.0.2.2";
+  // static const ip = "192.168.1.4";
   static const baseUrl = "http://$ip/fyp_backend";
   // static const baseUrl = "http://localhost/fyp_backend";
   // static const baseUrl = "http://172.16.16.1/fyp_backend";
