@@ -10,7 +10,8 @@ import '../../views/dashboard/exercise_recommendation_page.dart';
 class ExerciseSelectionController extends GetxController {
   var exerciseType = 'Strength'.obs;
   var exerciseLevel = 'Intermediate'.obs;
-  var numberOfExercises = 15.obs;
+  // var numberOfExercises = 15.obs;
+  var numberOfExercises = RxInt(15);
 
   void updateExerciseType(String value) {
     exerciseType.value = value;
@@ -19,6 +20,7 @@ class ExerciseSelectionController extends GetxController {
   void updateExerciseLevel(String value) {
     exerciseLevel.value = value;
   }
+
   void updatenumberOfExercises(int value) {
     numberOfExercises.value = value;
   }
