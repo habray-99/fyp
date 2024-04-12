@@ -34,8 +34,8 @@ class LoginController extends GetxController {
         hideText: true,
       );
       LoginRepo.login(
-        email: emailController.text,
-        password: passwordController.text,
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
         onSuccess: (user, token) async {
           loading.hide();
           final box = GetStorage();
