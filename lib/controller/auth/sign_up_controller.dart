@@ -64,13 +64,13 @@ class SignUpController extends GetxController {
       //   hideText: true,
       // );
       await RegisterRepo.register(
-          memberName: memberNameController.text,
-          memberEmail: memberEmailController.text,
-          memberPhone: memberPhoneController.text,
-          memberAddress: memberAddressController.text,
-          memberPassword: memberPasswordController.text,
-          memberHeight: memberHeightController.text.toString(),
-          memberWeight: memberWeightController.text.toString(),
+          memberName: memberNameController.text.trim(),
+          memberEmail: memberEmailController.text.trim(),
+          memberPhone: memberPhoneController.text.trim(),
+          memberAddress: memberAddressController.text.trim(),
+          memberPassword: memberPasswordController.text.trim(),
+          memberHeight: memberHeightController.text.toString().trim(),
+          memberWeight: memberWeightController.text.toString().trim(),
           memberImageUrl: memberImageFile.value,
           memberType: userType.value,
           onSuccess: (user, token) async {
