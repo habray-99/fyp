@@ -12,8 +12,6 @@ class GetGymsRepo {
     required Function(String? error) onError,
   }) async {
     try {
-
-
       var headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
