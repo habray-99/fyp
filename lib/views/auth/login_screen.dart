@@ -6,7 +6,6 @@ import 'package:fyp/utils/validators.dart';
 import 'package:fyp/views/auth/register_screen.dart';
 import 'package:fyp/views/dashboard/home_page.dart';
 import 'package:fyp/widgets/custom/custom_elevated_button.dart';
-
 import 'package:get/get.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -82,6 +81,18 @@ class _LogInScreenState extends State<LogInScreen> {
                   const CircularProgressIndicator(), // Optional: Show a loading indicator while the image is loading
               errorWidget: (context, url, error) => const Icon(Icons
                   .error), // Optional: Show an error icon if the image fails to load
+              // // ),
+              // child: Image(
+              //   image: AssetImage("assets/images/logo.svg",),
+              // ),
+              // child: ClipRRect(
+              //   borderRadius: BorderRadius.circular(10),
+              //   child: const Image(
+              //     image: AssetImage("assets/images/logo.jpg"),
+              //     fit: BoxFit
+              //         .cover, // Use BoxFit.cover to ensure the image covers the entire container
+              //   ),
+              // ),
             ),
           ),
         ),
