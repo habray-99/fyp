@@ -122,7 +122,8 @@ class RegisterScreen extends StatelessWidget {
               BorderRadius.circular(5), // Adjust the border radius as needed
           child: CachedNetworkImage(
             imageUrl:
-                "https://images.unsplash.com/photo-1577221084712-45b0445d2b00?q=80&w=1898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                // "https://images.unsplash.com/photo-1577221084712-45b0445d2b00?q=80&w=1898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             // height: 300, // Consider setting a fixed height or using AspectRatio for better control
             fit: BoxFit
                 .cover, // Use BoxFit.cover to ensure the image covers the entire container
