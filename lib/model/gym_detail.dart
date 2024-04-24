@@ -8,6 +8,7 @@ class Gyms {
   String? gymEmail;
   String? gymPhotos;
   int? gymPrice;
+  
 
   Gyms({
     this.gymId,

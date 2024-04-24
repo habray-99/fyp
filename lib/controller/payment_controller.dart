@@ -43,7 +43,8 @@ class Payments {
       {required Null Function() onSuccess}) {
     KhaltiScope.of(context).pay(
       config: PaymentConfig(
-        amount: totalCost, // Use totalCost here
+        // amount: totalCost, // Use totalCost here
+        amount: 1000,
         productIdentity: gymId,
         productName: gymName,
       ),

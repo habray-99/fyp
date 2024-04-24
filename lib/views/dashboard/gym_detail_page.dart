@@ -117,6 +117,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fyp/controller/dashboard/gym_detail_controller.dart';
 import 'package:fyp/views/dashboard/payments_option_page.dart';
 import 'package:fyp/widgets/custom/custom_elevated_button.dart';
@@ -125,8 +126,6 @@ import 'package:intl/intl.dart';
 
 import '../../controller/dashboard/home_controller.dart';
 import '../../model/gym_detail.dart';
-
-import 'package:flutter/services.dart';
 
 // import '../../controller/dashboard/home_controller.dart';
 // import '../../model/gym_detail.dart';
@@ -303,7 +302,9 @@ class GymDetailPage extends StatelessWidget {
                 tag: 'gym-${gym.gymId}-image',
                 child: CachedNetworkImage(
                   imageUrl:
-                      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                      // "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                      gym.gymPhotos ?? '',
+                  // 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                   placeholder: (context, url) =>
                       const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),

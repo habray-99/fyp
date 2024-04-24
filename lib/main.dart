@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:fyp/views/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
 import 'controller/core_controller.dart';
@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
               seedColor: const Color.fromRGBO(248, 248, 255, .7),
             ),
             useMaterial3: true,
+            textTheme: GoogleFonts.sourceSans3TextTheme(
+              Theme.of(context).textTheme,
+            ),
           ),
           initialBinding: BindingsBuilder(() {
             Get.put(CoreController());

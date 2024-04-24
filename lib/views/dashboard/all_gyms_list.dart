@@ -21,6 +21,7 @@ class _GymListPageState extends State<GymListPage> {
   List<Gyms> filteredGyms = [];
   TextEditingController searchController = TextEditingController();
   bool isSortedAscending = true;
+  String sortCriteria = 'price';
 
   @override
   void initState() {
@@ -58,16 +59,38 @@ class _GymListPageState extends State<GymListPage> {
     });
   }
 
-  void sortGyms() {
+  // void sortGyms() {
+  //   setState(() {
+  //     filteredGyms.sort((a, b) {
+  //       if (isSortedAscending) {
+  //         return (a.gymPrice ?? 0).compareTo(b.gymPrice ?? 0);
+  //       } else {
+  //         return (b.gymPrice ?? 0).compareTo(a.gymPrice ?? 0);
+  //       }
+  //     });
+  //   });
+  // }
+  void sortGyms(String criteria) {
     setState(() {
       filteredGyms.sort((a, b) {
         if (isSortedAscending) {
-          return (a.gymPrice ?? 0).compareTo(b.gymPrice ?? 0);
+          return _compare(a, b, criteria);
         } else {
-          return (b.gymPrice ?? 0).compareTo(a.gymPrice ?? 0);
+          return _compare(b, a, criteria);
         }
       });
     });
+  }
+
+  int _compare(Gyms a, Gyms b, String criteria) {
+    switch (criteria) {
+      case 'price':
+        return (a.gymPrice ?? 0).compareTo(b.gymPrice ?? 0);
+      case 'name':
+        return a.gymName?.compareTo(b.gymName ?? '') ?? 0;
+      default:
+        return 0;
+    }
   }
 
   @override
@@ -94,21 +117,74 @@ class _GymListPageState extends State<GymListPage> {
               },
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.sort),
-                onPressed: () {
-                  sortGyms();
-                  setState(() {
-                    isSortedAscending = !isSortedAscending;
-                  });
-                },
-              ),
-              Text(isSortedAscending
-                  ? 'Sort by Price (Ascending)'
-                  : 'Sort by Price (Descending)'),
-            ],
+          // Row(
+          //   children: [
+          //     IconButton(
+          //       icon: const Icon(Icons.sort),
+          //       onPressed: () {
+          //         sortGyms();
+          //         setState(() {
+          //           isSortedAscending = !isSortedAscending;
+          //         });
+          //       },
+          //     ),
+          //     Text(isSortedAscending
+          //         ? 'Sort by Price (Ascending)'
+          //         : 'Sort by Price (Descending)'),
+          //   ],
+          // ),
+
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DropdownButton<String>(
+                  value: sortCriteria,
+                  icon: const Icon(Icons.arrow_drop_down_rounded,
+                      color: Colors.deepPurple),
+                  iconSize: 24,
+                  elevation: 4,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 1,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      sortCriteria = newValue ?? 'price';
+                      sortGyms(sortCriteria);
+                    });
+                  },
+                  items: ['price', 'name']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value.capitalize!),
+                    );
+                  }).toList(),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Sort by $sortCriteria ${isSortedAscending ? '(Ascending)' : '(Descending)'}',
+                      style: const TextStyle(color: Colors.deepPurple),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.sort_rounded,
+                          color: Colors.deepPurple),
+                      onPressed: () {
+                        setState(() {
+                          isSortedAscending = !isSortedAscending;
+                        });
+                        sortGyms(sortCriteria);
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           Expanded(
             child: Padding(
@@ -138,7 +214,9 @@ class _GymListPageState extends State<GymListPage> {
                               tag: 'gym-${gym.gymId}-image',
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                                    // "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                                    gym.gymPhotos ?? '',
+                                        // 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                                 placeholder: (context, url) =>
                                     const CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>

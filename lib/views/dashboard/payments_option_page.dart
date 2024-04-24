@@ -86,7 +86,7 @@ class PaymentPage extends StatelessWidget {
                   context,
                   gym.gymId.toString(),
                   gym.gymName.toString(),
-                  totalCost,
+                  totalCost * 100,
                   onSuccess: () {
                     var newFormat = DateFormat("yyyy-MM-dd");
                     String updatedDt = newFormat.format(c.selectedDate.value);
@@ -94,6 +94,7 @@ class PaymentPage extends StatelessWidget {
                       gymID: gym.gymId.toString(),
                       date: updatedDt.toString(),
                       month: c.months.toString(),
+                      amount: (totalCost * 100).toString(),
                       onSuccess: () {
                         CustomSnackBar.success(
                           title: "Booking",

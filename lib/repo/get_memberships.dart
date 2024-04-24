@@ -30,6 +30,8 @@ class GetMEmbershipsRepo {
       if (data['message'] == "Payments fetched successfully") {
         var memberships = paymentsFromJson(data["payments"]);
         onSuccess(memberships);
+      } else if (data['message'] == "No payments found") {
+        onSuccess([]);
       } else {
         onError(data['message']);
       }

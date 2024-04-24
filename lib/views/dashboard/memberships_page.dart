@@ -20,14 +20,45 @@ class PaymentsListView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Previous Memberships'),
       ),
+      // body: Obx(
+      //   () => ListView.builder(
+      //     itemCount: paymentsController.paymentsList.length,
+      //     itemBuilder: (context, index) {
+      //       final payment = paymentsController.paymentsList[index];
+      //       return PaymentCard(payment: payment);
+      //     },
+      //   ),
+      // ),
       body: Obx(
-        () => ListView.builder(
-          itemCount: paymentsController.paymentsList.length,
-          itemBuilder: (context, index) {
-            final payment = paymentsController.paymentsList[index];
-            return PaymentCard(payment: payment);
-          },
-        ),
+        () => paymentsController.paymentsList.isEmpty
+            ? const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.info_outline, size: 50, color: Colors.grey),
+                    SizedBox(height: 20),
+                    Text(
+                      'No Memberships Found',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'It seems you don\'t have any previous memberships. Check back later or contact support for assistance.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              )
+            : ListView.builder(
+                itemCount: paymentsController.paymentsList.length,
+                itemBuilder: (context, index) {
+                  final payment = paymentsController.paymentsList[index];
+                  return PaymentCard(payment: payment);
+                },
+              ),
       ),
     );
   }

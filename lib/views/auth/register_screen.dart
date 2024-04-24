@@ -91,11 +91,11 @@ class RegisterScreen extends StatelessWidget {
     return Column(
       children: [
         const ListTile(
-          title: Text('User Type'),
-          subtitle: Text('Please select your user type'),
+          title: Text('Who could you be?'),
+          subtitle: Text('Please select who you are'),
         ),
         Obx(() => RadioListTile<String>(
-              title: const Text('Member'),
+              title: const Text('A Member'),
               value: '1',
               groupValue: c.userType.value,
               onChanged: (String? value) {
@@ -103,7 +103,7 @@ class RegisterScreen extends StatelessWidget {
               },
             )),
         Obx(() => RadioListTile<String>(
-              title: const Text('Gym Owner'),
+              title: const Text('A Gym Owner'),
               value: '2',
               groupValue: c.userType.value,
               onChanged: (String? value) {
@@ -163,7 +163,7 @@ class RegisterScreen extends StatelessWidget {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           labelText: "Name",
-          hintText: "Enter your name",
+          hintText: "Enter your  full name",
           hintStyle: const TextStyle(color: Colors.black38),
           // prefixIcon: const Icon(Icons.person),
           border: OutlineInputBorder(
@@ -305,7 +305,7 @@ class RegisterScreen extends StatelessWidget {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           labelText: "Height (Optional)",
-          hintText: "Enter your height",
+          hintText: "Enter your height in cm",
           hintStyle: const TextStyle(color: Colors.black38),
           // prefixIcon: const Icon(Icons.height),
           border: OutlineInputBorder(
@@ -325,7 +325,7 @@ class RegisterScreen extends StatelessWidget {
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           labelText: "Weight (Optional)",
-          hintText: "Enter your weight",
+          hintText: "Enter your weight in kg",
           hintStyle: const TextStyle(color: Colors.black38),
           // prefixIcon: const Icon(Icons.line_weight),
           border: OutlineInputBorder(
