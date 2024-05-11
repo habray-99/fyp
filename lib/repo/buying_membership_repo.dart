@@ -33,11 +33,11 @@ class BookingRepo {
       var response = await http.post(Uri.parse(Apis.paymentDetail),
           headers: headers, body: body);
       log(response.body); // Logs the response body
-      log(response.statusCode.toString()); // Logs the status code
+      // log(response.statusCode.toString()); // Logs the status code
 
-      log(response as String);
-      log(json.encode(body));
-      log(response.body);
+      // log(response as String);
+      // log(json.encode(body));
+      // log(response.body);
 
       dynamic data = jsonDecode(response.body);
       if (data["status"] == "success") {
