@@ -3,7 +3,7 @@ import 'package:fyp/controller/dashboard/gym_detail_controller.dart';
 import 'package:fyp/controller/payment_controller.dart';
 import 'package:fyp/model/gym_detail.dart';
 import 'package:fyp/repo/buying_membership_repo.dart';
-import 'package:fyp/views/dashboard/home_page.dart';
+import 'package:fyp/views/dashboard/memberships_page.dart';
 import 'package:fyp/widgets/custom/custom_elevated_button.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -64,7 +64,7 @@ class PaymentPage extends StatelessWidget {
                           title: "Booking",
                           message: "Booking is done successfully",
                         );
-                        Get.offAll(() => HomePage());
+                        Get.offAll(() => const PaymentsListView());
                       },
                       onError: (message) {
                         CustomSnackBar.error(
@@ -100,7 +100,7 @@ class PaymentPage extends StatelessWidget {
                           title: "Booking",
                           message: "Booking is done successfully",
                         );
-                        Get.offAll(() => HomePage());
+                        Get.offAll(() => const PaymentsListView());
                       },
                       onError: (message) {
                         CustomSnackBar.error(
